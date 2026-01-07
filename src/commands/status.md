@@ -81,26 +81,11 @@ This shows:
 - Origin has 3 new commits (red, hollow dots)
 - They share a common ancestor at `abc123`
 
-## Configuration
+## Display
 
-### Theme
-
-Set in `.jflow.toml`:
-
-```toml
-[display]
-theme = "catppuccin"  # or "nord", "dracula"
-icons = "unicode"     # or "ascii"
-```
-
-### Icon Sets
-
-| Set | Description |
-|-----|-------------|
-| `unicode` | Default, works in most terminals |
-| `ascii` | Safe fallback for basic terminals |
+jflow uses your terminal's default colors and Unicode characters for visualization. The output adapts to your terminal's color scheme automatically.
 
 ## See Also
 
 - [jf push](./push.md) - Push changes to GitHub
-- [Working with Themes](../guides/themes.md) - Customize appearance
+- [Stacked Changes](../guides/stacked-changes.md) - Understanding the workflow

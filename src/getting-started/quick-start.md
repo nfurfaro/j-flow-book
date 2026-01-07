@@ -25,6 +25,18 @@ Follow the prompts or use `jf init --defaults` for quick setup.
 
 This creates `.jflow.toml` with your configuration.
 
+### Starting a new project?
+
+Create a GitHub repo and initialize in one step:
+
+```bash
+mkdir my-project && cd my-project
+jj git init
+jf init --github
+```
+
+This creates a private GitHub repo, sets up the remote, and initializes jflow.
+
 ## 3. View Your Stack
 
 ```bash
@@ -115,6 +127,7 @@ This fetches from origin and rebases your stack.
 | Command | What it does |
 |---------|--------------|
 | `jf init` | Initialize jflow in repo |
+| `jf init --github` | Create GitHub repo and initialize |
 | `jf` | View your stack with sync state |
 | `jf push` | Push and create/update PRs |
 | `jf land` | Clean up after PRs merge |
@@ -190,4 +203,4 @@ jf push                      # Actually push
 
 - Learn about each [command](../commands/init.md) in detail
 - Read the [complete workflow guide](../guides/complete-workflow.md)
-- Configure [themes and icons](../guides/themes.md)
+- Understand [stacked changes](../guides/stacked-changes.md)
