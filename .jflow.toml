@@ -30,4 +30,4 @@ icons = "unicode"
 
 [bookmarks]
 # Prefix for bookmarks (e.g., "jf/" creates bookmarks like "jf/my-feature")
-prefix = "furfaro"
+prefix = "furfaro/"
