@@ -1,0 +1,32 @@
+[book]
+title = "jflow Documentation"
+authors = ["jflow contributors"]
+description = "Complete guide to jflow - a beautiful workflow tool for Jujutsu VCS"
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+create-missing = true
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/yourusername/jflow"
+edit-url-template = "https://github.com/yourusername/jflow/edit/main/docs/{path}"
+
+[output.html.playground]
+editable = false
+copyable = true
+copy-js = true
+
+[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3

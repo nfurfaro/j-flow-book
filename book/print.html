@@ -1,0 +1,1675 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>jflow Documentation</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="Complete guide to jflow - a beautiful workflow tool for Jujutsu VCS">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "navy";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-2940af9e.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-2907949e.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">jflow Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/yourusername/jflow" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>Welcome to <strong>jflow</strong> - a beautiful, radically simple workflow tool for <a href="https://github.com/martinvonz/jj">Jujutsu</a> version control.</p>
+<h2 id="what-is-jflow"><a class="header" href="#what-is-jflow">What is jflow?</a></h2>
+<p>jflow is a command-line tool that makes working with stacked changes in Jujutsu and GitHub effortless. It provides:</p>
+<ul>
+<li><strong>Beautiful visualization</strong> of your commit stack with sync state</li>
+<li><strong>Simple commands</strong> for common workflows</li>
+<li><strong>Automatic bookmark management</strong></li>
+<li><strong>Smart defaults</strong> that just work</li>
+<li><strong>GitHub integration</strong> via gh CLI</li>
+</ul>
+<h2 id="why-jflow"><a class="header" href="#why-jflow">Why jflow?</a></h2>
+<h3 id="the-problem"><a class="header" href="#the-problem">The Problem</a></h3>
+<p>Working with Jujutsu and GitHub PRs involves managing bookmarks (branches), keeping them in sync after rebases, and maintaining clean stacks of changes. This requires multiple manual steps:</p>
+<pre><code class="language-bash"># Without jflow
+jj edit &lt;change-id&gt;
+# make changes...
+jj bookmark set my-feature
+jj git push --bookmark my-feature --force
+# Repeat for each bookmark...
+</code></pre>
+<h3 id="the-solution"><a class="header" href="#the-solution">The Solution</a></h3>
+<p>jflow automates this workflow:</p>
+<pre><code class="language-bash"># With jflow
+jj edit &lt;change-id&gt;
+# make changes...
+jf push  # Updates ALL bookmarks and PRs automatically!
+</code></pre>
+<h2 id="core-philosophy"><a class="header" href="#core-philosophy">Core Philosophy</a></h2>
+<p><strong>Query, don’t track.</strong> jflow has zero state files—it queries jj directly using powerful revsets. Your stack is always <code>::@ ~ ::main@origin</code>. Simple.</p>
+<p><strong>Four commands. That’s it.</strong></p>
+<ul>
+<li><code>jf</code> - See your beautiful stack with sync state (same as <code>jf status</code>)</li>
+<li><code>jf push</code> - Push and create/update PRs</li>
+<li><code>jf land</code> - Clean up after PRs merge</li>
+<li><code>jf pull</code> - Fetch + rebase</li>
+</ul>
+<p>Plus one more for setup:</p>
+<ul>
+<li><code>jf init</code> - Initialize with smart defaults</li>
+</ul>
+<h2 id="key-features"><a class="header" href="#key-features">Key Features</a></h2>
+<h3 id="beautiful-output-with-sync-state"><a class="header" href="#beautiful-output-with-sync-state">Beautiful Output with Sync State</a></h3>
+<pre><code>╭───────────────── Your Stack (3 commits) ─────────────────╮
+
+  3/3 ●  qwer5678  Add login screen
+         jf/login-screen ✓
+  │
+  2/3 ○  tyui9012  Add backend API
+         jf/add-backend-api ↑2 ahead
+  │
+  1/3 ○  asdf1234  Add REST library
+        💡 ready to create PR
+  │
+  ◆  main@origin
+
+╰────────────────────────────────────────────────────────────╯
+</code></pre>
+<h3 id="smart-stack-management"><a class="header" href="#smart-stack-management">Smart Stack Management</a></h3>
+<ul>
+<li><strong>Position markers</strong> - See where each change is in the stack (1/3, 2/3, 3/3)</li>
+<li><strong>Sync indicators</strong> - Know if you’re ahead, behind, or synced with remote</li>
+<li><strong>Change IDs</strong> - Stable identifiers that survive rebases</li>
+<li><strong>Automatic rebasing</strong> - jj handles dependencies automatically</li>
+</ul>
+<h3 id="github-integration"><a class="header" href="#github-integration">GitHub Integration</a></h3>
+<ul>
+<li><strong>Stack context in PRs</strong> - Shows dependencies automatically</li>
+<li><strong>gh CLI integration</strong> - Create PRs from the command line</li>
+<li><strong>Push styles</strong> - Squash or append commits based on your preference</li>
+</ul>
+<h2 id="who-should-use-jflow"><a class="header" href="#who-should-use-jflow">Who Should Use jflow?</a></h2>
+<p>jflow is perfect for:</p>
+<ul>
+<li><strong>Jujutsu users</strong> who work with GitHub</li>
+<li><strong>Teams</strong> practicing stacked development</li>
+<li><strong>Developers</strong> who want beautiful tooling</li>
+<li><strong>Anyone</strong> tired of manual bookmark management</li>
+</ul>
+<h2 id="whats-next"><a class="header" href="#whats-next">What’s Next?</a></h2>
+<ul>
+<li>Read the <a href="#quick-start">Quick Start</a> to get up and running</li>
+<li>Learn about <a href="#jf-init">Commands</a> in detail</li>
+<li>Explore the <a href="#complete-workflow">Complete Workflow</a> guide</li>
+</ul>
+<p>Let’s make version control beautiful!</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<p>Before installing jflow, you need:</p>
+<ol>
+<li><strong>Rust toolchain</strong> - For building from source</li>
+<li><strong>Jujutsu (jj)</strong> - The version control system</li>
+<li><strong>gh CLI</strong> (optional) - For automatic PR creation</li>
+</ol>
+<h2 id="install-rust"><a class="header" href="#install-rust">Install Rust</a></h2>
+<pre><code class="language-bash">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+</code></pre>
+<p>Verify installation:</p>
+<pre><code class="language-bash">rustc --version
+cargo --version
+</code></pre>
+<h2 id="install-jujutsu"><a class="header" href="#install-jujutsu">Install Jujutsu</a></h2>
+<pre><code class="language-bash">cargo install --git https://github.com/martinvonz/jj jj-cli
+</code></pre>
+<p>Verify installation:</p>
+<pre><code class="language-bash">jj --version
+</code></pre>
+<h2 id="install-jflow"><a class="header" href="#install-jflow">Install jflow</a></h2>
+<h3 id="from-source-recommended"><a class="header" href="#from-source-recommended">From Source (Recommended)</a></h3>
+<pre><code class="language-bash"># Download and extract
+tar -xzf jflow-v0.2.0.tar.gz
+cd jflow
+
+# Build release binary
+cargo build --release
+
+# Install to PATH
+cp target/release/jf ~/.local/bin/
+</code></pre>
+<p>Make sure <code>~/.local/bin</code> is in your PATH:</p>
+<pre><code class="language-bash">echo 'export PATH="$HOME/.local/bin:$PATH"' &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<h3 id="verify-installation"><a class="header" href="#verify-installation">Verify Installation</a></h3>
+<pre><code class="language-bash">jf --version
+</code></pre>
+<p>You should see:</p>
+<pre><code>jf 0.2.0
+</code></pre>
+<h2 id="install-gh-cli-optional"><a class="header" href="#install-gh-cli-optional">Install gh CLI (Optional)</a></h2>
+<p>For automatic PR creation:</p>
+<h3 id="macos"><a class="header" href="#macos">macOS</a></h3>
+<pre><code class="language-bash">brew install gh
+</code></pre>
+<h3 id="linux"><a class="header" href="#linux">Linux</a></h3>
+<pre><code class="language-bash"># Debian/Ubuntu
+sudo apt install gh
+
+# Fedora
+sudo dnf install gh
+
+# Arch
+sudo pacman -S github-cli
+</code></pre>
+<h3 id="authenticate"><a class="header" href="#authenticate">Authenticate</a></h3>
+<pre><code class="language-bash">gh auth login
+</code></pre>
+<h2 id="platform-specific-notes"><a class="header" href="#platform-specific-notes">Platform-Specific Notes</a></h2>
+<h3 id="linux-1"><a class="header" href="#linux-1">Linux</a></h3>
+<p>You may need build essentials:</p>
+<pre><code class="language-bash"># Debian/Ubuntu
+sudo apt install build-essential libssl-dev pkg-config
+
+# Fedora
+sudo dnf install gcc openssl-devel
+</code></pre>
+<h3 id="macos-1"><a class="header" href="#macos-1">macOS</a></h3>
+<p>If using Homebrew:</p>
+<pre><code class="language-bash">brew install openssl
+</code></pre>
+<h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
+<p>Use WSL2 or install Rust via rustup-init.exe and build natively.</p>
+<h2 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h2>
+<h3 id="cargo-command-not-found"><a class="header" href="#cargo-command-not-found">“cargo: command not found”</a></h3>
+<p>Rust not installed or not in PATH. Install Rust and run:</p>
+<pre><code class="language-bash">source ~/.cargo/env
+</code></pre>
+<h3 id="jj-command-not-found"><a class="header" href="#jj-command-not-found">“jj: command not found”</a></h3>
+<p>Jujutsu not installed. Follow the Jujutsu installation above.</p>
+<h3 id="compilation-errors"><a class="header" href="#compilation-errors">Compilation errors</a></h3>
+<p>See the <a href="#building-from-source">Building from Source</a> guide for detailed troubleshooting.</p>
+<h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
+<ul>
+<li><a href="#quick-start">Quick Start Guide</a> - Get started with jflow</li>
+<li><a href="#jf-init">Initialize Your Repository</a> - Run <code>jf init</code></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h1>
+<p>Get up and running with jflow in 5 minutes!</p>
+<h2 id="1-verify-prerequisites"><a class="header" href="#1-verify-prerequisites">1. Verify Prerequisites</a></h2>
+<pre><code class="language-bash"># Check jj is installed
+jj --version
+
+# Check jf is installed
+jf --version
+</code></pre>
+<h2 id="2-initialize-jflow"><a class="header" href="#2-initialize-jflow">2. Initialize jflow</a></h2>
+<p>In your jj repository:</p>
+<pre><code class="language-bash">cd my-jj-project
+jf init
+</code></pre>
+<p>Follow the prompts or use <code>jf init --defaults</code> for quick setup.</p>
+<p>This creates <code>.jflow.toml</code> with your configuration.</p>
+<h2 id="3-view-your-stack"><a class="header" href="#3-view-your-stack">3. View Your Stack</a></h2>
+<pre><code class="language-bash">jf
+</code></pre>
+<p>Output:</p>
+<pre><code>╭───────────────── Your Stack (1 commit) ─────────────────╮
+
+  1/1 ●  abc1234  Current work
+        💡 ready to create PR
+  │
+  ◆  main@origin
+
+╰────────────────────────────────────────────────────────────╯
+</code></pre>
+<h2 id="4-create-some-changes"><a class="header" href="#4-create-some-changes">4. Create Some Changes</a></h2>
+<pre><code class="language-bash">jj new -m "Add REST library"
+# ... make changes ...
+
+jj new -m "Add API layer"
+# ... make changes ...
+
+jj new -m "Add UI component"
+# ... make changes ...
+</code></pre>
+<h2 id="5-view-your-stack-again"><a class="header" href="#5-view-your-stack-again">5. View Your Stack Again</a></h2>
+<pre><code class="language-bash">jf
+</code></pre>
+<p>Now you’ll see all three changes with position markers!</p>
+<h2 id="6-push-to-github"><a class="header" href="#6-push-to-github">6. Push to GitHub</a></h2>
+<pre><code class="language-bash">jf push
+</code></pre>
+<p>This:</p>
+<ul>
+<li>Prompts for bookmark names (if needed)</li>
+<li>Creates bookmarks</li>
+<li>Pushes to GitHub</li>
+<li>Creates PRs with stack context</li>
+</ul>
+<h2 id="7-edit-a-change"><a class="header" href="#7-edit-a-change">7. Edit a Change</a></h2>
+<pre><code class="language-bash"># Edit any change in your stack
+jj edit &lt;change-id&gt;
+# ... make changes ...
+</code></pre>
+<h2 id="8-push-updates"><a class="header" href="#8-push-updates">8. Push Updates</a></h2>
+<p>After editing:</p>
+<pre><code class="language-bash">jf push
+</code></pre>
+<p>This updates all bookmarks and their PRs automatically.</p>
+<h2 id="9-after-prs-merge"><a class="header" href="#9-after-prs-merge">9. After PRs Merge</a></h2>
+<pre><code class="language-bash">jf land
+</code></pre>
+<p>This cleans up merged PRs and rebases your remaining stack.</p>
+<h2 id="10-pull-latest-changes"><a class="header" href="#10-pull-latest-changes">10. Pull Latest Changes</a></h2>
+<pre><code class="language-bash">jf pull
+</code></pre>
+<p>This fetches from origin and rebases your stack.</p>
+<h2 id="common-commands"><a class="header" href="#common-commands">Common Commands</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>jf init</code></td><td>Initialize jflow in repo</td></tr>
+<tr><td><code>jf</code></td><td>View your stack with sync state</td></tr>
+<tr><td><code>jf push</code></td><td>Push and create/update PRs</td></tr>
+<tr><td><code>jf land</code></td><td>Clean up after PRs merge</td></tr>
+<tr><td><code>jf pull</code></td><td>Fetch + rebase</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="typical-workflow"><a class="header" href="#typical-workflow">Typical Workflow</a></h2>
+<pre><code class="language-bash"># Morning
+jf pull                          # Get latest
+
+# Work (outside-in)
+jj new -m "Add core library"
+jj new -m "Add API"
+jj new -m "Add UI"
+
+# View
+jf
+
+# Push all at once
+jf push                          # Creates bookmarks and PRs
+
+# Get feedback, edit
+jj edit &lt;core-id&gt;
+# make changes...
+
+# Push updates
+jf push                          # All PRs updated!
+
+# After PRs merge
+jf land                          # Clean up
+
+# End of day
+jf pull                          # Stay current
+</code></pre>
+<h2 id="tips"><a class="header" href="#tips">Tips</a></h2>
+<h3 id="1-use-jf-often"><a class="header" href="#1-use-jf-often">1. Use jf Often</a></h3>
+<pre><code class="language-bash">jf
+</code></pre>
+<p>Shows what you’re working on, sync state, and what has PRs.</p>
+<h3 id="2-bookmark-naming"><a class="header" href="#2-bookmark-naming">2. Bookmark Naming</a></h3>
+<p>Use descriptive names when prompted:</p>
+<pre><code>Bookmark name for abc1234 (Add authentication) [skip]: add-user-authentication
+</code></pre>
+<h3 id="3-small-changes"><a class="header" href="#3-small-changes">3. Small Changes</a></h3>
+<p>Keep changes small and focused:</p>
+<ul>
+<li>✅ “Add REST client”</li>
+<li>✅ “Add API endpoint”</li>
+<li>❌ “Add entire feature”</li>
+</ul>
+<h3 id="4-inside-out-review"><a class="header" href="#4-inside-out-review">4. Inside-Out Review</a></h3>
+<p>Create PRs from bottom of stack up - review dependencies first.</p>
+<h3 id="5-check-before-push"><a class="header" href="#5-check-before-push">5. Check Before Push</a></h3>
+<pre><code class="language-bash">jf push --dry-run            # Preview changes
+jf push                      # Actually push
+</code></pre>
+<h2 id="next-steps-1"><a class="header" href="#next-steps-1">Next Steps</a></h2>
+<ul>
+<li>Learn about each <a href="#jf-init">command</a> in detail</li>
+<li>Read the <a href="#complete-workflow">complete workflow guide</a></li>
+<li>Configure <a href="guides/themes.html">themes and icons</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="your-first-workflow"><a class="header" href="#your-first-workflow">Your First Workflow</a></h1>
+<p>A hands-on tutorial for your first stack of changes with jflow.</p>
+<h2 id="scenario"><a class="header" href="#scenario">Scenario</a></h2>
+<p>You’re adding user authentication to your app. This requires:</p>
+<ol>
+<li>A REST client library</li>
+<li>An API layer that uses it</li>
+<li>A UI component that uses the API</li>
+</ol>
+<p>Let’s build this as a stack of changes!</p>
+<h2 id="step-1-initialize"><a class="header" href="#step-1-initialize">Step 1: Initialize</a></h2>
+<pre><code class="language-bash">cd your-jj-project
+jf init --defaults
+</code></pre>
+<h2 id="step-2-create-the-stack-outside-in"><a class="header" href="#step-2-create-the-stack-outside-in">Step 2: Create the Stack (Outside-In)</a></h2>
+<p>Work from <strong>outside</strong> (UI) to <strong>inside</strong> (core):</p>
+<pre><code class="language-bash"># Start with UI (what user sees)
+jj new -m "Add login screen UI"
+# Create login screen files
+touch src/components/LoginScreen.tsx
+# Edit the file...
+
+# Add API layer (what UI needs)
+jj new -m "Add authentication API"
+# Create API files
+touch src/api/auth.ts
+# Edit the file...
+
+# Add core library (what API needs)
+jj new -m "Add REST client library"
+# Create library files
+touch src/lib/rest-client.ts
+# Edit the file...
+</code></pre>
+<h2 id="step-3-view-your-stack"><a class="header" href="#step-3-view-your-stack">Step 3: View Your Stack</a></h2>
+<pre><code class="language-bash">jf
+</code></pre>
+<p>Output:</p>
+<pre><code>╭───────────────── Your Stack (3 commits) ─────────────────╮
+
+  3/3 ●  xyz789  Add REST client library
+        💡 ready to create PR
+  │
+  2/3 ○  def456  Add authentication API
+        💡 ready to create PR
+  │
+  1/3 ○  abc123  Add login screen UI
+        💡 ready to create PR
+  │
+  ◆  main@origin
+
+╰────────────────────────────────────────────────────────────╯
+</code></pre>
+<p>Notice: The stack is in the order we created them - but that’s backwards for dependencies! The library should be at the bottom (merged first), not the top.</p>
+<h2 id="step-4-reorder-by-dependency"><a class="header" href="#step-4-reorder-by-dependency">Step 4: Reorder by Dependency</a></h2>
+<p>We want: Library → API → UI (bottom to top). Just invert the stack:</p>
+<pre><code class="language-bash">jf reorder --invert
+</code></pre>
+<p>That’s it! Now <code>jf</code> shows the correct order:</p>
+<pre><code>╭───────────────── Your Stack (3 commits) ─────────────────╮
+
+  3/3 ●  abc123  Add login screen UI
+        💡 ready to create PR
+  │
+  2/3 ○  def456  Add authentication API
+        💡 ready to create PR
+  │
+  1/3 ○  xyz789  Add REST client library
+        💡 ready to create PR
+  │
+  ◆  main@origin
+
+╰────────────────────────────────────────────────────────────╯
+</code></pre>
+<p>Perfect! Library at bottom, UI at top.</p>
+<h2 id="step-5-push-to-github"><a class="header" href="#step-5-push-to-github">Step 5: Push to GitHub</a></h2>
+<p>Push everything at once:</p>
+<pre><code class="language-bash">jf push
+</code></pre>
+<p>jflow auto-generates bookmark names from your descriptions:</p>
+<pre><code>ℹ Found 3 change(s) to push (style: squash)
+ℹ Creating bookmark 'add-rest-client-library' at xyz789
+ℹ Pushing add-rest-client-library...
+ℹ Creating pull request...
+✓ Pull request created!
+
+ℹ Creating bookmark 'add-authentication-api' at def456
+ℹ Pushing add-authentication-api...
+ℹ Creating pull request...
+✓ Pull request created!
+
+ℹ Creating bookmark 'add-login-screen-ui' at abc123
+ℹ Pushing add-login-screen-ui...
+ℹ Creating pull request...
+✓ Pull request created!
+
+✓ Done!
+</code></pre>
+<p>Each PR shows its dependencies in the description!</p>
+<h2 id="step-6-check-sync-state"><a class="header" href="#step-6-check-sync-state">Step 6: Check Sync State</a></h2>
+<pre><code class="language-bash">jf
+</code></pre>
+<pre><code>╭───────────────── Your Stack (3 commits) ─────────────────╮
+
+  3/3 ●  abc123  Add login screen UI
+         → add-login-screen-ui ✓
+  │
+  2/3 ○  def456  Add authentication API
+         → add-authentication-api ✓
+  │
+  1/3 ○  xyz789  Add REST client library
+         → add-rest-client-library ✓
+  │
+  ◆  main@origin
+
+╰────────────────────────────────────────────────────────────╯
+</code></pre>
+<p>All bookmarks show ✓ - they’re synced with remote!</p>
+<h2 id="step-7-respond-to-review-feedback"><a class="header" href="#step-7-respond-to-review-feedback">Step 7: Respond to Review Feedback</a></h2>
+<p>Reviewer comments on the library PR:</p>
+<blockquote>
+<p>“Please add error handling”</p>
+</blockquote>
+<p>No problem! Edit it directly:</p>
+<pre><code class="language-bash"># Edit the library commit
+jj edit xyz789
+
+# Make changes
+vim src/lib/rest-client.ts
+# Add error handling...
+
+# Return to tip
+jj new
+</code></pre>
+<h2 id="step-8-push-updates"><a class="header" href="#step-8-push-updates">Step 8: Push Updates</a></h2>
+<pre><code class="language-bash">jf push
+</code></pre>
+<p>Output:</p>
+<pre><code>ℹ Found 3 change(s) to push (style: squash)
+ℹ Pushing rest-client-library...
+ℹ Pushing auth-api...
+ℹ Pushing login-screen...
+✓ Done!
+</code></pre>
+<p><strong>All three PRs automatically updated!</strong></p>
+<p>The API and UI commits were automatically rebased onto the updated library.</p>
+<h2 id="step-9-library-pr-gets-merged"><a class="header" href="#step-9-library-pr-gets-merged">Step 9: Library PR Gets Merged</a></h2>
+<p>Great! The library PR is approved and merged.</p>
+<p>Clean up:</p>
+<pre><code class="language-bash">jf land
+</code></pre>
+<p>Output:</p>
+<pre><code>ℹ Fetching from origin...
+ℹ Found 1 merged PR(s)
+ℹ Deleting bookmark 'rest-client-library'...
+ℹ Rebasing stack onto main@origin...
+✓ Cleanup complete!
+
+╭───────────────── Your Stack (2 commits) ─────────────────╮
+
+  2/2 ●  abc123  Add login screen UI
+         login-screen ✓
+  │
+  1/2 ○  def456  Add authentication API
+         auth-api ✓
+  │
+  ◆  main@origin
+
+╰────────────────────────────────────────────────────────────╯
+</code></pre>
+<p>Notice: Library is gone (merged into main)!</p>
+<p>Push the remaining PRs to update their base:</p>
+<pre><code class="language-bash">jf push
+</code></pre>
+<p>Now API and UI PRs are based on latest main.</p>
+<h2 id="step-10-continue-until-done"><a class="header" href="#step-10-continue-until-done">Step 10: Continue Until Done</a></h2>
+<p>Continue the process:</p>
+<pre><code class="language-bash"># After API PR merges
+jf land
+jf push
+
+# After UI PR merges
+jf land
+</code></pre>
+<p>Final state:</p>
+<pre><code>╭───────────────── Your Stack (0 commits) ─────────────────╮
+
+  No changes in stack
+  (All work is integrated into main@origin)
+
+╰────────────────────────────────────────────────────────────╯
+</code></pre>
+<p>Clean slate! Ready for next feature.</p>
+<h2 id="what-you-learned"><a class="header" href="#what-you-learned">What You Learned</a></h2>
+<h3 id="outside-in-development"><a class="header" href="#outside-in-development">Outside-In Development</a></h3>
+<ul>
+<li>Start with UI (what user sees)</li>
+<li>Work backwards to dependencies</li>
+<li>Natural way to think about features</li>
+</ul>
+<h3 id="inside-out-review"><a class="header" href="#inside-out-review">Inside-Out Review</a></h3>
+<ul>
+<li>Review core dependencies first</li>
+<li>Higher-level changes wait for lower-level</li>
+<li>Reduces review iterations</li>
+</ul>
+<h3 id="automatic-rebasing"><a class="header" href="#automatic-rebasing">Automatic Rebasing</a></h3>
+<ul>
+<li>Edit any change directly with <code>jj edit</code></li>
+<li>Descendants automatically rebase</li>
+<li><code>jf push</code> updates all PRs</li>
+</ul>
+<h3 id="stack-management"><a class="header" href="#stack-management">Stack Management</a></h3>
+<ul>
+<li><code>jf</code> shows clear picture with sync state</li>
+<li><code>jf push</code> pushes and creates/updates PRs</li>
+<li><code>jf land</code> cleans up after merges</li>
+<li><code>jf pull</code> keeps you current</li>
+</ul>
+<h2 id="common-patterns"><a class="header" href="#common-patterns">Common Patterns</a></h2>
+<h3 id="fix-in-middle-of-stack"><a class="header" href="#fix-in-middle-of-stack">Fix in Middle of Stack</a></h3>
+<pre><code class="language-bash">jj edit &lt;middle-change&gt;
+# fix...
+jf push  # Updates all dependent PRs
+</code></pre>
+<h3 id="add-change-to-stack"><a class="header" href="#add-change-to-stack">Add Change to Stack</a></h3>
+<pre><code class="language-bash">jj new &lt;parent&gt; -m "New change"
+# work...
+jf push  # Creates bookmark and PR
+</code></pre>
+<h3 id="split-a-change"><a class="header" href="#split-a-change">Split a Change</a></h3>
+<pre><code class="language-bash">jj edit &lt;change&gt;
+jj split
+# Creates two changes
+jf push  # Creates PRs for both
+</code></pre>
+<h2 id="next-steps-2"><a class="header" href="#next-steps-2">Next Steps</a></h2>
+<ul>
+<li>Read the <a href="#complete-workflow">Complete Workflow Guide</a></li>
+<li>Learn about <a href="#github-integration-1">GitHub Integration</a></li>
+<li>Explore <a href="#configuration-1">Configuration Options</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="jf-init"><a class="header" href="#jf-init">jf init</a></h1>
+<p>Initialize jflow with smart defaults. See full guide in Getting Started section.</p>
+<h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
+<pre><code class="language-bash">jf init [--defaults]
+</code></pre>
+<p>Creates <code>.jflow.toml</code> with auto-detected settings.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="jf-status"><a class="header" href="#jf-status">jf status</a></h1>
+<p>View your beautiful stack visualization with sync state.</p>
+<h2 id="usage-1"><a class="header" href="#usage-1">Usage</a></h2>
+<pre><code class="language-bash">jf              # shorthand (runs status by default)
+jf status       # explicit
+</code></pre>
+<h2 id="example-output"><a class="header" href="#example-output">Example Output</a></h2>
+<pre><code>╭───────────────── Your Stack (3 commits) ─────────────────╮
+
+  3/3 ●  abc12345  Add login screen
+         jf/login-screen ✓
+  │
+  2/3 ○  def67890  Add API layer
+         jf/api-layer ↑2 ahead
+  │
+  1/3 ○  ghi11111  Add REST library
+        💡 ready to create PR
+  │
+  ◆  main@origin
+
+╰────────────────────────────────────────────────────────────╯
+
+💡 Quick commands:
+  💡 Push to GitHub: jf push
+  ℹ Update from remote: jf pull
+</code></pre>
+<h2 id="understanding-the-output"><a class="header" href="#understanding-the-output">Understanding the Output</a></h2>
+<h3 id="position-markers"><a class="header" href="#position-markers">Position Markers</a></h3>
+<p>Each change shows its position in the stack:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Marker</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>3/3</code></td><td>Third change out of 3 total (closest to you)</td></tr>
+<tr><td><code>1/3</code></td><td>First change (closest to main)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="icons"><a class="header" href="#icons">Icons</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Icon</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>●</code></td><td>Current working copy</td></tr>
+<tr><td><code>○</code></td><td>Other change in stack</td></tr>
+<tr><td><code>◆</code></td><td>Main branch</td></tr>
+<tr><td><code>→</code></td><td>Bookmark indicator</td></tr>
+<tr><td><code>💡</code></td><td>Ready to create PR</td></tr>
+<tr><td><code>✓</code></td><td>Synced with remote</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="sync-state-indicators"><a class="header" href="#sync-state-indicators">Sync State Indicators</a></h3>
+<p>When a change has a bookmark, the sync state with remote is shown:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Indicator</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>✓</code></td><td>Synced with remote (same commit)</td></tr>
+<tr><td><code>(local only)</code></td><td>Bookmark exists only locally, not pushed</td></tr>
+<tr><td><code>↑N ahead</code></td><td>Local is N commits ahead of remote</td></tr>
+<tr><td><code>↓N behind</code></td><td>Local is N commits behind remote</td></tr>
+<tr><td>Fork diagram</td><td>Local and remote have diverged</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="diverged-state"><a class="header" href="#diverged-state">Diverged State</a></h3>
+<p>When local and remote have diverged, a visual fork is shown:</p>
+<pre><code>                 ╭──●──●──●    local (+2)
+        hotfix ──○ abc123
+                 ╰──○──○──○    origin (+3) ⚠ diverged
+</code></pre>
+<p>This shows:</p>
+<ul>
+<li>Local has 2 new commits (green, filled dots)</li>
+<li>Origin has 3 new commits (red, hollow dots)</li>
+<li>They share a common ancestor at <code>abc123</code></li>
+</ul>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<h3 id="theme"><a class="header" href="#theme">Theme</a></h3>
+<p>Set in <code>.jflow.toml</code>:</p>
+<pre><code class="language-toml">[display]
+theme = "catppuccin"  # or "nord", "dracula"
+icons = "unicode"     # or "ascii"
+</code></pre>
+<h3 id="icon-sets"><a class="header" href="#icon-sets">Icon Sets</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Set</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>unicode</code></td><td>Default, works in most terminals</td></tr>
+<tr><td><code>ascii</code></td><td>Safe fallback for basic terminals</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="see-also"><a class="header" href="#see-also">See Also</a></h2>
+<ul>
+<li><a href="#jf-push">jf push</a> - Push changes to GitHub</li>
+<li><a href="guides/themes.html">Working with Themes</a> - Customize appearance</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="jf-push"><a class="header" href="#jf-push">jf push</a></h1>
+<p>Push changes to GitHub, creating or updating PRs.</p>
+<h2 id="usage-2"><a class="header" href="#usage-2">Usage</a></h2>
+<pre><code class="language-bash">jf push                           # Push all changes in current stack
+jf push -r &lt;revset&gt;               # Push specific changes
+jf push -b &lt;name&gt; -r @            # Override auto-generated bookmark name
+jf push --dry-run                 # Preview what would be done
+</code></pre>
+<h2 id="options"><a class="header" href="#options">Options</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>-r, --revision &lt;revset&gt;</code></td><td>Revset of changes to push (default: entire stack)</td></tr>
+<tr><td><code>-b, --bookmark &lt;name&gt;</code></td><td>Override the auto-generated bookmark name</td></tr>
+<tr><td><code>--squash</code></td><td>Force squash-style push (override config)</td></tr>
+<tr><td><code>--append</code></td><td>Force append-style push (override config)</td></tr>
+<tr><td><code>-n, --dry-run</code></td><td>Show what would be done without doing it</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-it-does"><a class="header" href="#what-it-does">What It Does</a></h2>
+<ol>
+<li><strong>Ensures main branch exists</strong> - Automatically creates <code>main</code> on remote if missing</li>
+<li><strong>Finds changes to push</strong> - Uses the provided revset or the entire stack</li>
+<li><strong>Auto-generates bookmark names</strong> - From the change description (e.g., “Add login” → <code>add-login</code>)</li>
+<li><strong>Sets PR base branch</strong> - Parent’s bookmark or main for root changes</li>
+<li><strong>Pushes to remote</strong> - Uses configured push style (squash or append)</li>
+<li><strong>Creates/updates PRs</strong> - Via <code>gh</code> CLI if available</li>
+</ol>
+<h2 id="bookmark-generation"><a class="header" href="#bookmark-generation">Bookmark Generation</a></h2>
+<p>jflow automatically creates bookmark names from your change descriptions:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Description</th><th>Generated Bookmark</th></tr>
+</thead>
+<tbody>
+<tr><td>Add user authentication</td><td><code>add-user-authentication</code></td></tr>
+<tr><td>Fix bug in login form</td><td><code>fix-bug-in-login-form</code></td></tr>
+<tr><td>Update README with examples</td><td><code>update-readme-with-examples</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>The bookmark name is:</p>
+<ul>
+<li>Lowercase</li>
+<li>Words joined with hyphens</li>
+<li>Limited to first 5 words</li>
+<li>Only alphanumeric characters and hyphens</li>
+</ul>
+<p>Use <code>-b</code> to override when the auto-generated name isn’t suitable:</p>
+<pre><code class="language-bash">jf push -b auth-v2 -r @
+</code></pre>
+<h2 id="push-styles"><a class="header" href="#push-styles">Push Styles</a></h2>
+<h3 id="squash-default"><a class="header" href="#squash-default">Squash (default)</a></h3>
+<p>Force-pushes updates to the branch. Simple and clean.</p>
+<pre><code class="language-bash">jf push --squash
+</code></pre>
+<h3 id="append"><a class="header" href="#append">Append</a></h3>
+<p>Adds incremental commits on top. Preserves review context.</p>
+<pre><code class="language-bash">jf push --append
+</code></pre>
+<p>Configure default in <code>.jflow.toml</code>:</p>
+<pre><code class="language-toml">[github]
+push_style = "squash"  # or "append"
+</code></pre>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<h3 id="push-entire-stack"><a class="header" href="#push-entire-stack">Push entire stack</a></h3>
+<pre><code class="language-bash">jf push
+</code></pre>
+<h3 id="push-single-change-with-custom-bookmark"><a class="header" href="#push-single-change-with-custom-bookmark">Push single change with custom bookmark</a></h3>
+<pre><code class="language-bash">jf push -r @ -b my-feature
+</code></pre>
+<h3 id="preview-changes"><a class="header" href="#preview-changes">Preview changes</a></h3>
+<pre><code class="language-bash">jf push --dry-run
+</code></pre>
+<p>Output:</p>
+<pre><code>ℹ Found 2 change(s) to push (style: squash)
+
+Dry run - would push:
+  abc12345 Add authentication [needs bookmark]
+  def67890 Add login screen [add-login-screen]
+</code></pre>
+<h2 id="stack-context-in-prs"><a class="header" href="#stack-context-in-prs">Stack Context in PRs</a></h2>
+<p>When <code>stack_context = true</code> in config, PR descriptions include:</p>
+<pre><code class="language-markdown">## Part of stack:
+
+- ✓ Add REST library (bookmark: `add-rest-library`)
+- **This PR** (Add API layer)
+- ⏳ Add UI component (bookmark: `add-ui-component`)
+</code></pre>
+<h2 id="see-also-1"><a class="header" href="#see-also-1">See Also</a></h2>
+<ul>
+<li><a href="#understanding-bookmarks-and-branches">Bookmarks and Branches</a> - Understanding the relationship</li>
+<li><a href="#jf-land">jf land</a> - Clean up after PRs are merged</li>
+<li><a href="#jf-status">jf status</a> - View your stack</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="jf-land"><a class="header" href="#jf-land">jf land</a></h1>
+<p>Clean up after PRs are merged.</p>
+<h2 id="usage-3"><a class="header" href="#usage-3">Usage</a></h2>
+<pre><code class="language-bash">jf land                  # Auto-detect merged PRs and cleanup
+jf land &lt;bookmark&gt;       # Land a specific PR
+jf land --dry-run        # Preview what would be done
+</code></pre>
+<h2 id="options-1"><a class="header" href="#options-1">Options</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>&lt;bookmark&gt;</code></td><td>Specific bookmark to land (optional)</td></tr>
+<tr><td><code>-n, --dry-run</code></td><td>Show what would be done without doing it</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-it-does-1"><a class="header" href="#what-it-does-1">What It Does</a></h2>
+<ol>
+<li><strong>Fetches from remote</strong> - Gets latest state from origin</li>
+<li><strong>Finds merged PRs</strong> - Checks which bookmarks have merged PRs (via <code>gh</code> CLI)</li>
+<li><strong>Deletes landed bookmarks</strong> - Removes local bookmarks for merged PRs</li>
+<li><strong>Rebases remaining stack</strong> - Updates your stack onto the updated main</li>
+<li><strong>Shows updated stack</strong> - Displays what’s left to work on</li>
+</ol>
+<h2 id="examples-1"><a class="header" href="#examples-1">Examples</a></h2>
+<h3 id="auto-detect-and-cleanup-merged-prs"><a class="header" href="#auto-detect-and-cleanup-merged-prs">Auto-detect and cleanup merged PRs</a></h3>
+<pre><code class="language-bash">jf land
+</code></pre>
+<p>Output:</p>
+<pre><code>ℹ Fetching from origin...
+ℹ Found 2 merged PR(s)
+ℹ Deleting bookmark 'jf/rest-library'...
+ℹ Deleting bookmark 'jf/auth-api'...
+ℹ Rebasing stack onto main@origin...
+✓ Cleanup complete!
+
+╭─ Your Stack (1 commit) ──────────────────────╮
+│                                               │
+│  ●  abc123  Add login screen UI              │
+│      → jf/login-screen                       │
+│  │                                            │
+│  ◆  main@origin                              │
+│                                               │
+╰───────────────────────────────────────────────╯
+</code></pre>
+<h3 id="land-a-specific-bookmark"><a class="header" href="#land-a-specific-bookmark">Land a specific bookmark</a></h3>
+<pre><code class="language-bash">jf land jf/my-feature
+</code></pre>
+<h3 id="preview-cleanup"><a class="header" href="#preview-cleanup">Preview cleanup</a></h3>
+<pre><code class="language-bash">jf land --dry-run
+</code></pre>
+<p>Output:</p>
+<pre><code>ℹ Fetching from origin...
+ℹ Found 1 merged PR(s)
+
+Dry run - would clean up:
+  - jf/rest-library
+</code></pre>
+<h2 id="workflow"><a class="header" href="#workflow">Workflow</a></h2>
+<p>Typical post-merge workflow:</p>
+<pre><code class="language-bash"># After PRs are merged on GitHub
+jf land          # Cleanup merged bookmarks
+jf               # See remaining stack
+jf push          # Update remaining PRs with new base
+</code></pre>
+<h2 id="see-also-2"><a class="header" href="#see-also-2">See Also</a></h2>
+<ul>
+<li><a href="#jf-push">jf push</a> - Push changes to GitHub</li>
+<li><a href="#jf-pull">jf pull</a> - Pull and rebase stack</li>
+<li><a href="#complete-workflow">Complete Workflow</a> - Full development cycle</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="jf-pull"><a class="header" href="#jf-pull">jf pull</a></h1>
+<p>Fetch and rebase your stack.</p>
+<h2 id="usage-4"><a class="header" href="#usage-4">Usage</a></h2>
+<pre><code class="language-bash">jf pull [--remote &lt;name&gt;]
+</code></pre>
+<p>Equivalent to <code>jj git fetch &amp;&amp; jj rebase -d main@origin</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="jf-reorder"><a class="header" href="#jf-reorder">jf reorder</a></h1>
+<p>Reorder changes in your stack.</p>
+<h2 id="usage-5"><a class="header" href="#usage-5">Usage</a></h2>
+<pre><code class="language-bash">jf reorder &lt;change1&gt; &lt;change2&gt; ...      # put changes in specified order
+jf reorder -f &lt;c1&gt; &lt;c2&gt; &lt;c3&gt; ...        # reorder starting from c1 (inclusive)
+jf reorder --invert                      # reverse the entire stack
+jf reorder --invert -f &lt;change&gt;          # reverse from change to @ (inclusive)
+</code></pre>
+<h2 id="options-2"><a class="header" href="#options-2">Options</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>&lt;changes&gt;...</code></td><td>Changes to reorder (short IDs like <code>abc</code> work)</td></tr>
+<tr><td><code>-i, --invert</code></td><td>Reverse the stack order</td></tr>
+<tr><td><code>-f, --from &lt;change&gt;</code></td><td>Starting change (inclusive) for both explicit and invert modes</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-it-does-2"><a class="header" href="#what-it-does-2">What It Does</a></h2>
+<h3 id="explicit-reorder"><a class="header" href="#explicit-reorder">Explicit Reorder</a></h3>
+<p>Put changes in exactly the order you specify:</p>
+<pre><code class="language-bash">jf reorder abc def ghi
+</code></pre>
+<p>Results in: <code>main</code> → <code>abc</code> → <code>def</code> → <code>ghi</code></p>
+<p>This is useful when you realize your changes are in the wrong dependency order.</p>
+<h3 id="reorder-with-starting-point"><a class="header" href="#reorder-with-starting-point">Reorder with Starting Point</a></h3>
+<p>Specify the first change to include in the reorder:</p>
+<pre><code class="language-bash">jf reorder -f abc def ghi
+</code></pre>
+<p>Results in: <code>parent(abc)</code> → <code>abc</code> → <code>def</code> → <code>ghi</code></p>
+<p>The <code>-f</code> flag is inclusive - <code>abc</code> becomes the first change in the new order.</p>
+<h3 id="invert-stack"><a class="header" href="#invert-stack">Invert Stack</a></h3>
+<p>Reverse the order of your entire stack:</p>
+<pre><code class="language-bash">jf reorder --invert
+</code></pre>
+<p>Before:</p>
+<pre><code>@  ghi  Third change
+○  def  Second change
+○  abc  First change
+◆  main@origin
+</code></pre>
+<p>After:</p>
+<pre><code>@  abc  First change
+○  def  Second change
+○  ghi  Third change
+◆  main@origin
+</code></pre>
+<h3 id="partial-invert"><a class="header" href="#partial-invert">Partial Invert</a></h3>
+<p>Reverse only part of the stack:</p>
+<pre><code class="language-bash">jf reorder --invert -f def
+</code></pre>
+<p>This reverses from <code>def</code> to <code>@</code>, leaving earlier changes alone.</p>
+<h2 id="examples-2"><a class="header" href="#examples-2">Examples</a></h2>
+<h3 id="fix-dependency-order"><a class="header" href="#fix-dependency-order">Fix dependency order</a></h3>
+<p>You created changes in the wrong order - the UI change came before the API it depends on:</p>
+<pre><code class="language-bash"># Current (wrong):
+# @  ui-change
+# ○  api-change
+# ◆  main
+
+# Fix it:
+jf reorder api-change ui-change
+
+# Result (correct):
+# @  api-change
+# ○  ui-change
+# ◆  main
+</code></pre>
+<h3 id="quick-stack-reversal"><a class="header" href="#quick-stack-reversal">Quick stack reversal</a></h3>
+<p>You built a feature bottom-up but want to submit PRs top-down:</p>
+<pre><code class="language-bash">jf reorder --invert
+</code></pre>
+<h2 id="notes"><a class="header" href="#notes">Notes</a></h2>
+<ul>
+<li>Uses short change IDs (first few unique characters)</li>
+<li>Shows the updated stack after reordering</li>
+<li>Under the hood, uses <code>jj rebase</code> to move changes</li>
+</ul>
+<h2 id="see-also-3"><a class="header" href="#see-also-3">See Also</a></h2>
+<ul>
+<li><a href="#jf-status">jf status</a> - View your stack</li>
+<li><a href="#jf-push">jf push</a> - Push after reordering</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="jf-wip"><a class="header" href="#jf-wip">jf wip</a></h1>
+<p>Sync work-in-progress between machines.</p>
+<h2 id="usage-6"><a class="header" href="#usage-6">Usage</a></h2>
+<pre><code class="language-bash">jf wip              # show wip status
+jf wip push         # push stack to wip branch
+jf wip push --force # overwrite existing wip branch
+jf wip pull         # pull wip branch and rebase onto main
+jf wip clean        # delete wip branch (if changes have PRs)
+jf wip clean --force # delete wip branch regardless
+</code></pre>
+<h2 id="options-3"><a class="header" href="#options-3">Options</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>-f, --force</code></td><td>Force overwrite (push) or delete without PR check (clean)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-it-does-3"><a class="header" href="#what-it-does-3">What It Does</a></h2>
+<p>The <code>wip</code> command helps you sync uncommitted work between machines without creating PRs.</p>
+<h3 id="the-problem-1"><a class="header" href="#the-problem-1">The Problem</a></h3>
+<p>With jj/jflow, you work directly on main and your changes aren’t on a feature branch. When you need to switch machines, you need a way to transfer your stack.</p>
+<h3 id="the-solution-1"><a class="header" href="#the-solution-1">The Solution</a></h3>
+<p><code>jf wip</code> creates a temporary <code>wip/&lt;username&gt;</code> bookmark that holds your entire stack. Push it from one machine, pull it on another.</p>
+<h2 id="subcommands"><a class="header" href="#subcommands">Subcommands</a></h2>
+<h3 id="jf-wip-status"><a class="header" href="#jf-wip-status"><code>jf wip</code> (status)</a></h3>
+<p>Show the current state of your wip branch:</p>
+<pre><code>$ jf wip
+ℹ wip/nick on origin:
+  ○ abc12345  Add login UI
+  ○ def67890  Add auth API
+  ○ ghi11111  Add REST client
+</code></pre>
+<p>Or if no wip exists:</p>
+<pre><code>$ jf wip
+ℹ No wip branch found (wip/nick)
+  Use `jf wip push` to push your stack
+</code></pre>
+<h3 id="jf-wip-push"><a class="header" href="#jf-wip-push"><code>jf wip push</code></a></h3>
+<p>Push your entire stack to the wip branch:</p>
+<pre><code>$ jf wip push
+ℹ Pushing 3 changes to wip/nick...
+✓ Done!
+</code></pre>
+<p>If a wip branch already exists (maybe you pushed from another machine), it fails:</p>
+<pre><code>$ jf wip push
+✗ wip/nick already exists on origin
+  ○ xyz98765  Some other work
+
+  Use `--force` to overwrite, or `jf wip pull` to fetch it first.
+</code></pre>
+<p>Use <code>--force</code> to overwrite:</p>
+<pre><code>$ jf wip push --force
+ℹ Overwriting wip/nick (3 changes)...
+✓ Done!
+</code></pre>
+<h3 id="jf-wip-pull"><a class="header" href="#jf-wip-pull"><code>jf wip pull</code></a></h3>
+<p>Fetch the wip branch and rebase onto your local main:</p>
+<pre><code>$ jf wip pull
+ℹ Fetching from origin...
+ℹ Found 3 changes in wip/nick
+ℹ Rebasing onto main@origin...
+✓ Done!
+</code></pre>
+<p>This command:</p>
+<ol>
+<li>Fetches from remote (updates both wip and main@origin)</li>
+<li>Checks for local changes (aborts if any exist)</li>
+<li>Rebases the wip changes onto main@origin</li>
+</ol>
+<p>If you have local changes, it aborts:</p>
+<pre><code>$ jf wip pull
+ℹ Fetching from origin...
+✗ You have local changes:
+  ○ abc12345  Some local work
+
+  Clean up your local stack first, then try again.
+</code></pre>
+<h3 id="jf-wip-clean"><a class="header" href="#jf-wip-clean"><code>jf wip clean</code></a></h3>
+<p>Delete the wip bookmark (local and remote) when you’re done:</p>
+<pre><code>$ jf wip clean
+ℹ wip/nick contains 3 changes:
+  ○ abc12345  Add login UI ✓
+  ○ def67890  Add auth API ✓
+  ○ ghi11111  Add REST client ✓
+
+✓ All changes have PRs
+✓ Deleted bookmark wip/nick (local and remote)
+</code></pre>
+<p>If changes don’t have PRs yet, it refuses (to prevent data loss):</p>
+<pre><code>$ jf wip clean
+ℹ wip/nick contains 3 changes:
+  ○ abc12345  Add login UI
+  ○ def67890  Add auth API
+  ○ ghi11111  Add REST client
+
+✗ Cannot clean: some changes not in any PR
+  Hint: push PRs with `jf push`, or use `--force` to delete anyway
+</code></pre>
+<p>Use <code>--force</code> to delete anyway:</p>
+<pre><code>$ jf wip clean --force
+✓ Deleted bookmark wip/nick (local and remote)
+</code></pre>
+<h2 id="typical-workflow-1"><a class="header" href="#typical-workflow-1">Typical Workflow</a></h2>
+<h3 id="switching-from-desktop-to-laptop"><a class="header" href="#switching-from-desktop-to-laptop">Switching from desktop to laptop</a></h3>
+<pre><code class="language-bash"># On desktop - done for the day
+jf wip push
+
+# On laptop - starting work
+jf wip pull
+# ... continue working ...
+
+# When done, push PRs
+jf push
+jf wip clean
+</code></pre>
+<h3 id="resuming-on-original-machine"><a class="header" href="#resuming-on-original-machine">Resuming on original machine</a></h3>
+<pre><code class="language-bash"># On desktop next day
+jf wip pull   # get any changes made on laptop
+
+# Or if you already have the changes locally
+jf wip clean  # just clean up the wip branch
+</code></pre>
+<h2 id="notes-1"><a class="header" href="#notes-1">Notes</a></h2>
+<ul>
+<li>The wip branch is named <code>wip/&lt;username&gt;</code> (e.g., <code>wip/nick</code>)</li>
+<li>Only one wip branch per user - it represents “my current work”</li>
+<li>Changes in wip are rebased onto the latest main@origin when pulled</li>
+<li>The <code>clean</code> command checks that changes have PRs before deleting (safety net)</li>
+</ul>
+<h2 id="see-also-4"><a class="header" href="#see-also-4">See Also</a></h2>
+<ul>
+<li><a href="#jf-push">jf push</a> - Push changes as PRs</li>
+<li><a href="#jf-pull">jf pull</a> - Pull and rebase main</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="understanding-bookmarks-and-branches"><a class="header" href="#understanding-bookmarks-and-branches">Understanding Bookmarks and Branches</a></h1>
+<p>If you’re coming from Git, the relationship between jj changes, bookmarks, and GitHub PRs can be confusing. This guide explains how they all fit together.</p>
+<h2 id="the-mental-model"><a class="header" href="#the-mental-model">The Mental Model</a></h2>
+<p>In jflow, you work on <code>main</code> and create small, focused changes. Each change can become a PR. Branches are <strong>ephemeral</strong> - they exist only to integrate with GitHub’s PR model.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Concept</th><th>Git</th><th>Jujutsu</th><th>GitHub</th></tr>
+</thead>
+<tbody>
+<tr><td>Main line</td><td><code>main</code> branch</td><td><code>main@origin</code></td><td>Default branch</td></tr>
+<tr><td>Your work</td><td>Feature branch</td><td><strong>Change</strong></td><td>PR</td></tr>
+<tr><td>Integration</td><td>Merge/rebase</td><td>Rebase</td><td>Merge PR</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="whats-mainorigin"><a class="header" href="#whats-mainorigin">What’s <code>main@origin</code>?</a></h2>
+<p>In jj, bookmarks can be local or remote-tracking:</p>
+<ul>
+<li><code>main</code> - a local bookmark (may or may not exist)</li>
+<li><code>main@origin</code> - the remote-tracking bookmark (what’s on GitHub)</li>
+</ul>
+<p>When you <code>jj git fetch</code>, jj updates <code>main@origin</code> to match what’s on GitHub. This is similar to git’s <code>origin/main</code>.</p>
+<p>jflow uses <code>main@origin</code> as the base for your stack because it represents “what’s actually on GitHub” - the source of truth.</p>
+<h2 id="changes-not-branches"><a class="header" href="#changes-not-branches">Changes, Not Branches</a></h2>
+<p>In Git, you create a branch, switch to it, make commits, then merge.</p>
+<p>In jj (and jflow), you work differently:</p>
+<ol>
+<li><strong>You stay on main</strong> - no branch switching</li>
+<li><strong>You create changes</strong> - each change is like a commit with a unique ID</li>
+<li><strong>Changes stack naturally</strong> - child changes sit on top of parent changes</li>
+<li><strong>Bookmarks are just names</strong> - attached only when pushing to GitHub</li>
+</ol>
+<p>Think of it this way: in jflow, you work with <strong>changes</strong>. Bookmarks are an implementation detail for GitHub.</p>
+<h2 id="the-jflow-workflow"><a class="header" href="#the-jflow-workflow">The jflow Workflow</a></h2>
+<pre><code>Your local state (jj log):
+
+@  qvmlopxt  Add login button      &lt;- you are here
+│
+○  rnxpwmkl  Add auth API          &lt;- ready to push
+│
+○  ktspomvn  Add user model        &lt;- already has PR
+│
+◆  main@origin                     &lt;- what's on GitHub
+</code></pre>
+<p>When you run <code>jf push</code>:</p>
+<ol>
+<li>For each change without a bookmark, jflow generates one from the description
+<ul>
+<li>“Add auth API” → <code>add-auth-api</code></li>
+</ul>
+</li>
+<li>Pushes the bookmark to GitHub (creating a branch)</li>
+<li>Creates a PR from that branch</li>
+</ol>
+<p>After push, GitHub has:</p>
+<ul>
+<li>Branch <code>add-user-model</code> → PR targeting <code>main</code></li>
+<li>Branch <code>add-auth-api</code> → PR targeting <code>add-user-model</code></li>
+</ul>
+<h2 id="why-this-works"><a class="header" href="#why-this-works">Why This Works</a></h2>
+<ul>
+<li><strong>No context switching</strong> - you stay on main, jj handles the graph</li>
+<li><strong>Small PRs</strong> - each change = one PR, easy to review</li>
+<li><strong>Clean history</strong> - PRs merge to main, bookmarks disappear</li>
+<li><strong>No manual naming</strong> - jflow generates bookmark names automatically</li>
+</ul>
+<h2 id="bookmarks-are-temporary"><a class="header" href="#bookmarks-are-temporary">Bookmarks Are Temporary</a></h2>
+<p>This is the key insight: <strong>bookmarks exist for GitHub, not for you</strong>.</p>
+<p>You work with changes. When you need to push to GitHub, jflow creates a bookmark (branch name) automatically. After the PR merges, <code>jf land</code> cleans up the bookmark.</p>
+<p>You never need to think about branch names unless you want to override the auto-generated one:</p>
+<pre><code class="language-bash"># Auto-generated: "add-user-authentication"
+jf push
+
+# Custom name if needed
+jf push -b auth-v2
+</code></pre>
+<h2 id="common-questions"><a class="header" href="#common-questions">Common Questions</a></h2>
+<h3 id="do-i-need-to-create-bookmarks-manually"><a class="header" href="#do-i-need-to-create-bookmarks-manually">Do I need to create bookmarks manually?</a></h3>
+<p>No. <code>jf push</code> creates them automatically from your change descriptions.</p>
+<h3 id="what-if-i-want-to-work-on-something-unrelated"><a class="header" href="#what-if-i-want-to-work-on-something-unrelated">What if I want to work on something unrelated?</a></h3>
+<p>Create a new change from main:</p>
+<pre><code class="language-bash">jj new main@origin  # Start fresh from remote main
+</code></pre>
+<p>Your other changes are still there - jj tracks everything in the graph.</p>
+<h3 id="how-do-i-see-what-bookmarks-exist"><a class="header" href="#how-do-i-see-what-bookmarks-exist">How do I see what bookmarks exist?</a></h3>
+<pre><code class="language-bash">jj bookmark list
+</code></pre>
+<p>But you rarely need to - jflow manages them for you.</p>
+<h3 id="what-happens-when-a-pr-merges"><a class="header" href="#what-happens-when-a-pr-merges">What happens when a PR merges?</a></h3>
+<p>Run <code>jf land</code> to:</p>
+<ol>
+<li>Fetch the merged changes</li>
+<li>Rebase your remaining stack</li>
+<li>Delete the merged bookmark</li>
+<li>Update downstream PRs to target <code>main</code></li>
+</ol>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="complete-workflow"><a class="header" href="#complete-workflow">Complete Workflow</a></h1>
+<p>Full stacked changes workflow with jflow.</p>
+<p>See <a href="#your-first-workflow">First Workflow</a> for a hands-on tutorial.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="github-integration-1"><a class="header" href="#github-integration-1">GitHub Integration</a></h1>
+<p>Using jflow with GitHub PRs via gh CLI.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h1>
+<p>Complete <code>.jflow.toml</code> guide.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="stacked-changes"><a class="header" href="#stacked-changes">Stacked Changes</a></h1>
+<p>A workflow methodology for building features as small, focused, reviewable changes.</p>
+<h2 id="the-core-idea"><a class="header" href="#the-core-idea">The Core Idea</a></h2>
+<p>Instead of building a feature in one large commit (or messy branch), break it into a <strong>stack of small, focused changes</strong>. Each change:</p>
+<ul>
+<li>Does one thing well</li>
+<li>Builds on the previous change</li>
+<li>Is independently reviewable</li>
+<li>Can be merged incrementally</li>
+</ul>
+<h2 id="outside-in-development-inside-out-review"><a class="header" href="#outside-in-development-inside-out-review">Outside-In Development, Inside-Out Review</a></h2>
+<p>This methodology was popularized by Drew Deponte in his article <a href="https://drewdeponte.com/blog/how-we-should-be-using-git/">How We Should Be Using Git</a>.</p>
+<h3 id="outside-in-development-1"><a class="header" href="#outside-in-development-1">Outside-In Development</a></h3>
+<p>When building a feature, start from the <strong>outside</strong> (what the user sees) and work <strong>inward</strong> (to the implementation details):</p>
+<ol>
+<li><strong>UI layer</strong> - The user-facing component</li>
+<li><strong>API layer</strong> - The interface the UI needs</li>
+<li><strong>Core layer</strong> - The underlying implementation</li>
+</ol>
+<p>This is natural because you think about what you need as you go.</p>
+<h3 id="inside-out-review-1"><a class="header" href="#inside-out-review-1">Inside-Out Review</a></h3>
+<p>When reviewing and merging, go in the <strong>opposite direction</strong>:</p>
+<ol>
+<li><strong>Core layer first</strong> - Merge the foundation</li>
+<li><strong>API layer next</strong> - Merge the interface</li>
+<li><strong>UI layer last</strong> - Merge what depends on everything else</li>
+</ol>
+<p>This ensures each PR has its dependencies already merged.</p>
+<h3 id="example"><a class="header" href="#example">Example</a></h3>
+<p>Building user authentication:</p>
+<pre><code>Development order (outside-in):
+1. Add login screen UI
+2. Add authentication API
+3. Add REST client library
+
+Review/merge order (inside-out):
+1. Add REST client library  &lt;- merge first
+2. Add authentication API   &lt;- merge second
+3. Add login screen UI      &lt;- merge last
+</code></pre>
+<p>After creating these changes, use <code>jf reorder --invert</code> to flip the stack for proper merge order.</p>
+<h2 id="why-stacked-changes"><a class="header" href="#why-stacked-changes">Why Stacked Changes?</a></h2>
+<h3 id="smaller-prs"><a class="header" href="#smaller-prs">Smaller PRs</a></h3>
+<ul>
+<li>Easier to review (&lt; 200 lines ideal)</li>
+<li>Faster feedback cycles</li>
+<li>Less context switching for reviewers</li>
+</ul>
+<h3 id="better-history"><a class="header" href="#better-history">Better History</a></h3>
+<ul>
+<li>Each change tells a clear story</li>
+<li>Easy to bisect and debug</li>
+<li>Clean, linear history</li>
+</ul>
+<h3 id="parallel-work"><a class="header" href="#parallel-work">Parallel Work</a></h3>
+<ul>
+<li>Team members can review different parts of the stack</li>
+<li>Changes can be merged as soon as they’re approved</li>
+<li>No waiting for one massive PR</li>
+</ul>
+<h2 id="jflows-role"><a class="header" href="#jflows-role">jflow’s Role</a></h2>
+<p>jflow makes this workflow effortless:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Task</th><th>Command</th></tr>
+</thead>
+<tbody>
+<tr><td>See your stack</td><td><code>jf</code></td></tr>
+<tr><td>Reorder for review</td><td><code>jf reorder --invert</code></td></tr>
+<tr><td>Push all changes</td><td><code>jf push</code></td></tr>
+<tr><td>Clean up after merge</td><td><code>jf land</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="inspiration"><a class="header" href="#inspiration">Inspiration</a></h2>
+<p>jflow’s stacked workflow is inspired by:</p>
+<ul>
+<li><strong><a href="https://github.com/uptech/git-ps-rs">git-ps-rs</a></strong> - Patch stack tooling for Git</li>
+<li><strong>Drew Deponte’s <a href="https://drewdeponte.com/blog/how-we-should-be-using-git/">article</a></strong> on Git workflows</li>
+<li><strong>Jujutsu’s</strong> native support for working with stacked changes</li>
+</ul>
+<p>The key insight: Git (and GitHub) weren’t designed for this workflow, but Jujutsu was. jflow bridges jj’s powerful change model with GitHub’s PR-based review process.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="configuration-reference"><a class="header" href="#configuration-reference">Configuration Reference</a></h1>
+<p>All <code>.jflow.toml</code> options explained.</p>
+<h2 id="full-example"><a class="header" href="#full-example">Full Example</a></h2>
+<pre><code class="language-toml">[remote]
+name = "origin"
+main_branch = "main"
+
+[github]
+push_style = "squash"
+merge_style = "squash"
+stack_context = true
+
+[bookmarks]
+prefix = ""
+</code></pre>
+<h2 id="sections"><a class="header" href="#sections">Sections</a></h2>
+<h3 id="remote"><a class="header" href="#remote">[remote]</a></h3>
+<p>Remote repository settings.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>name</code></td><td>string</td><td><code>"origin"</code></td><td>Name of the Git remote</td></tr>
+<tr><td><code>main_branch</code></td><td>string</td><td><code>"main"</code></td><td>Main branch name</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Branch resolution:</strong></p>
+<p>jflow resolves the main branch reference in this order:</p>
+<ol>
+<li><code>main_branch@remote</code> (e.g., <code>main@origin</code>) - the remote tracking branch</li>
+<li><code>main_branch</code> (local) - if remote doesn’t exist</li>
+<li><code>root()</code> - fallback for brand new repos</li>
+</ol>
+<h3 id="github"><a class="header" href="#github">[github]</a></h3>
+<p>GitHub integration settings.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>push_style</code></td><td>string</td><td><code>"squash"</code></td><td>How to push updates</td></tr>
+<tr><td><code>merge_style</code></td><td>string</td><td><code>"squash"</code></td><td>How PRs should be merged</td></tr>
+<tr><td><code>stack_context</code></td><td>bool</td><td><code>true</code></td><td>Include stack info in PR descriptions</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Push styles:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Style</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>squash</code></td><td>Force-push updates. Simple and clean.</td></tr>
+<tr><td><code>append</code></td><td>Add incremental commits. Preserves review context.</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Merge styles:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Style</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>squash</code></td><td>Squash all commits into one</td></tr>
+<tr><td><code>merge</code></td><td>Create a merge commit</td></tr>
+<tr><td><code>rebase</code></td><td>Rebase and merge</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="bookmarks"><a class="header" href="#bookmarks">[bookmarks]</a></h3>
+<p>Bookmark naming settings.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>prefix</code></td><td>string</td><td><code>""</code></td><td>Prefix for auto-generated bookmark names</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example:</strong> If <code>prefix = "jf/"</code> and you push a change with description “Add user auth”, the bookmark will be <code>jf/add-user-auth</code>.</p>
+<h2 id="environment-variables"><a class="header" href="#environment-variables">Environment Variables</a></h2>
+<p>jflow respects standard environment variables:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Variable</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>NO_COLOR</code></td><td>Disable color output</td></tr>
+<tr><td><code>CLICOLOR_FORCE</code></td><td>Force color output</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="file-location"><a class="header" href="#file-location">File Location</a></h2>
+<p>jflow looks for <code>.jflow.toml</code> in:</p>
+<ol>
+<li>Current directory</li>
+<li>Parent directories (up to repository root)</li>
+</ol>
+<p>If not found, default values are used.</p>
+<h2 id="creating-a-config"><a class="header" href="#creating-a-config">Creating a Config</a></h2>
+<h3 id="interactive-setup"><a class="header" href="#interactive-setup">Interactive Setup</a></h3>
+<pre><code class="language-bash">jf init
+</code></pre>
+<p>Guides you through configuration with prompts.</p>
+<h3 id="quick-setup"><a class="header" href="#quick-setup">Quick Setup</a></h3>
+<pre><code class="language-bash">jf init --defaults
+</code></pre>
+<p>Creates config with sensible defaults.</p>
+<h3 id="manual"><a class="header" href="#manual">Manual</a></h3>
+<p>Create <code>.jflow.toml</code> manually with your preferred settings.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="revsets"><a class="header" href="#revsets">Revsets</a></h1>
+<p>How jflow uses jj revsets.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="troubleshooting-1"><a class="header" href="#troubleshooting-1">Troubleshooting</a></h1>
+<p>Common issues and solutions.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="design-philosophy"><a class="header" href="#design-philosophy">Design Philosophy</a></h1>
+<p>Query, don’t track. Revset-first. Beautiful by default.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
+<p>Rust implementation details.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="building-from-source"><a class="header" href="#building-from-source">Building from Source</a></h1>
+<p>Compilation and installation guide.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="contributing"><a class="header" href="#contributing">Contributing</a></h1>
+<p>How to contribute to jflow.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="changelog"><a class="header" href="#changelog">Changelog</a></h1>
+<p>Version history and releases.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="comparison"><a class="header" href="#comparison">Comparison</a></h1>
+<p>jflow vs git-ps-rs and other tools.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="faq"><a class="header" href="#faq">FAQ</a></h1>
+<p>Frequently asked questions.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>
