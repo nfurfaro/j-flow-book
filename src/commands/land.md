@@ -23,7 +23,8 @@ jf land --dry-run        # Preview what would be done
 2. **Finds merged PRs** - Checks which bookmarks have merged PRs (via `gh` CLI)
 3. **Deletes landed bookmarks** - Removes local bookmarks for merged PRs
 4. **Rebases remaining stack** - Updates your stack onto the updated main
-5. **Shows updated stack** - Displays what's left to work on
+5. **Creates fresh commit** - Runs `jj new` so you're ready for new work
+6. **Shows updated stack** - Displays what's left to work on
 
 ## Examples
 
@@ -41,11 +42,11 @@ Output:
 ℹ Deleting bookmark 'jf/auth-api'...
 ℹ Rebasing stack onto main@origin...
 ✓ Cleanup complete!
+ℹ Creating fresh commit for new work...
 
 ╭─ Your Stack (1 commit) ──────────────────────╮
 │                                               │
-│  ●  abc123  Add login screen UI              │
-│      → jf/login-screen                       │
+│  ●  xyz789  (empty) New work                 │
 │  │                                            │
 │  ◆  main@origin                              │
 │                                               │
