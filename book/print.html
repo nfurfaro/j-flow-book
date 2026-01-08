@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "navy";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2940af9e.js";
+            window.path_to_searchindex_js = "searchindex-68012474.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-2907949e.js"></script>
@@ -373,6 +373,13 @@ jf init
 </code></pre>
 <p>Follow the prompts or use <code>jf init --defaults</code> for quick setup.</p>
 <p>This creates <code>.jflow.toml</code> with your configuration.</p>
+<h3 id="starting-a-new-project"><a class="header" href="#starting-a-new-project">Starting a new project?</a></h3>
+<p>Create a GitHub repo and initialize in one step:</p>
+<pre><code class="language-bash">mkdir my-project &amp;&amp; cd my-project
+jj git init
+jf init --github
+</code></pre>
+<p>This creates a private GitHub repo, sets up the remote, and initializes jflow.</p>
 <h2 id="3-view-your-stack"><a class="header" href="#3-view-your-stack">3. View Your Stack</a></h2>
 <pre><code class="language-bash">jf
 </code></pre>
@@ -436,6 +443,7 @@ jj edit &lt;change-id&gt;
 </thead>
 <tbody>
 <tr><td><code>jf init</code></td><td>Initialize jflow in repo</td></tr>
+<tr><td><code>jf init --github</code></td><td>Create GitHub repo and initialize</td></tr>
 <tr><td><code>jf</code></td><td>View your stack with sync state</td></tr>
 <tr><td><code>jf push</code></td><td>Push and create/update PRs</td></tr>
 <tr><td><code>jf land</code></td><td>Clean up after PRs merge</td></tr>
@@ -497,7 +505,7 @@ jf push                      # Actually push
 <ul>
 <li>Learn about each <a href="#jf-init">command</a> in detail</li>
 <li>Read the <a href="#complete-workflow">complete workflow guide</a></li>
-<li>Configure <a href="guides/themes.html">themes and icons</a></li>
+<li>Understand <a href="#stacked-changes">stacked changes</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="your-first-workflow"><a class="header" href="#your-first-workflow">Your First Workflow</a></h1>
@@ -740,15 +748,90 @@ jf push  # Creates PRs for both
 <ul>
 <li>Read the <a href="#complete-workflow">Complete Workflow Guide</a></li>
 <li>Learn about <a href="#github-integration-1">GitHub Integration</a></li>
-<li>Explore <a href="#configuration-1">Configuration Options</a></li>
+<li>Explore <a href="#configuration">Configuration Options</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="jf-init"><a class="header" href="#jf-init">jf init</a></h1>
-<p>Initialize jflow with smart defaults. See full guide in Getting Started section.</p>
+<p>Initialize jflow in a Jujutsu repository.</p>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
-<pre><code class="language-bash">jf init [--defaults]
+<pre><code class="language-bash">jf init              # Interactive setup
+jf init --defaults   # Use auto-detected defaults
+jf init --github     # Create GitHub repo and initialize
 </code></pre>
-<p>Creates <code>.jflow.toml</code> with auto-detected settings.</p>
+<h2 id="options"><a class="header" href="#options">Options</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>-d, --defaults</code></td><td>Skip prompts, use detected/default values</td></tr>
+<tr><td><code>--github</code></td><td>Create a GitHub repository (uses <code>gh</code> CLI)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="what-it-does"><a class="header" href="#what-it-does">What It Does</a></h2>
+<ol>
+<li>Detects your main branch (main/master) and remote (origin)</li>
+<li>Prompts for configuration (or uses defaults with <code>-d</code>)</li>
+<li>Creates <code>.jflow.toml</code> config file</li>
+<li>Optionally creates a GitHub repository with <code>--github</code></li>
+</ol>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<h3 id="basic-initialization"><a class="header" href="#basic-initialization">Basic initialization</a></h3>
+<pre><code class="language-bash">cd my-jj-project
+jf init
+</code></pre>
+<p>You’ll be prompted for:</p>
+<ul>
+<li>Main branch name (detected: main)</li>
+<li>Remote name (detected: origin)</li>
+<li>Push style (squash or append)</li>
+<li>Bookmark prefix (optional)</li>
+</ul>
+<h3 id="quick-setup-with-defaults"><a class="header" href="#quick-setup-with-defaults">Quick setup with defaults</a></h3>
+<pre><code class="language-bash">jf init --defaults
+</code></pre>
+<p>Uses auto-detected values without prompting.</p>
+<h3 id="new-project-with-github"><a class="header" href="#new-project-with-github">New project with GitHub</a></h3>
+<pre><code class="language-bash">mkdir my-project
+cd my-project
+jj git init
+jf init --github
+</code></pre>
+<p>This will:</p>
+<ol>
+<li>Create a private GitHub repository named <code>my-project</code></li>
+<li>Set up <code>origin</code> remote pointing to it</li>
+<li>Push your initial commit as <code>main</code></li>
+<li>Create <code>.jflow.toml</code></li>
+</ol>
+<h2 id="generated-config"><a class="header" href="#generated-config">Generated Config</a></h2>
+<p><code>jf init</code> creates <code>.jflow.toml</code>:</p>
+<pre><code class="language-toml"># jflow configuration
+
+[remote]
+name = "origin"
+primary = "main"
+
+[github]
+push_style = "squash"
+merge_style = "squash"
+stack_context = true
+
+[bookmarks]
+prefix = ""
+</code></pre>
+<h2 id="prerequisites-1"><a class="header" href="#prerequisites-1">Prerequisites</a></h2>
+<ul>
+<li>Must be in a jj repository (<code>jj git init</code> first)</li>
+<li>For <code>--github</code>: requires <a href="https://cli.github.com/">GitHub CLI</a> (<code>gh</code>) installed and authenticated</li>
+</ul>
+<h2 id="see-also"><a class="header" href="#see-also">See Also</a></h2>
+<ul>
+<li><a href="#quick-start">Quick Start</a> - Full getting started guide</li>
+<li><a href="#configuration">Configuration</a> - Config file reference</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="jf-status"><a class="header" href="#jf-status">jf status</a></h1>
 <p>View your beautiful stack visualization with sync state.</p>
@@ -834,29 +917,12 @@ jf status       # explicit
 <li>Origin has 3 new commits (red, hollow dots)</li>
 <li>They share a common ancestor at <code>abc123</code></li>
 </ul>
-<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
-<h3 id="theme"><a class="header" href="#theme">Theme</a></h3>
-<p>Set in <code>.jflow.toml</code>:</p>
-<pre><code class="language-toml">[display]
-theme = "catppuccin"  # or "nord", "dracula"
-icons = "unicode"     # or "ascii"
-</code></pre>
-<h3 id="icon-sets"><a class="header" href="#icon-sets">Icon Sets</a></h3>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Set</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>unicode</code></td><td>Default, works in most terminals</td></tr>
-<tr><td><code>ascii</code></td><td>Safe fallback for basic terminals</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="see-also"><a class="header" href="#see-also">See Also</a></h2>
+<h2 id="display"><a class="header" href="#display">Display</a></h2>
+<p>jflow uses your terminal’s default colors and Unicode characters for visualization. The output adapts to your terminal’s color scheme automatically.</p>
+<h2 id="see-also-1"><a class="header" href="#see-also-1">See Also</a></h2>
 <ul>
 <li><a href="#jf-push">jf push</a> - Push changes to GitHub</li>
-<li><a href="guides/themes.html">Working with Themes</a> - Customize appearance</li>
+<li><a href="#stacked-changes">Stacked Changes</a> - Understanding the workflow</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="jf-push"><a class="header" href="#jf-push">jf push</a></h1>
@@ -867,7 +933,7 @@ jf push -r &lt;revset&gt;               # Push specific changes
 jf push -b &lt;name&gt; -r @            # Override auto-generated bookmark name
 jf push --dry-run                 # Preview what would be done
 </code></pre>
-<h2 id="options"><a class="header" href="#options">Options</a></h2>
+<h2 id="options-1"><a class="header" href="#options-1">Options</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -882,7 +948,7 @@ jf push --dry-run                 # Preview what would be done
 </tbody>
 </table>
 </div>
-<h2 id="what-it-does"><a class="header" href="#what-it-does">What It Does</a></h2>
+<h2 id="what-it-does-1"><a class="header" href="#what-it-does-1">What It Does</a></h2>
 <ol>
 <li><strong>Ensures main branch exists</strong> - Automatically creates <code>main</code> on remote if missing</li>
 <li><strong>Finds changes to push</strong> - Uses the provided revset or the entire stack</li>
@@ -928,7 +994,7 @@ jf push --dry-run                 # Preview what would be done
 <pre><code class="language-toml">[github]
 push_style = "squash"  # or "append"
 </code></pre>
-<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<h2 id="examples-1"><a class="header" href="#examples-1">Examples</a></h2>
 <h3 id="push-entire-stack"><a class="header" href="#push-entire-stack">Push entire stack</a></h3>
 <pre><code class="language-bash">jf push
 </code></pre>
@@ -953,7 +1019,7 @@ Dry run - would push:
 - **This PR** (Add API layer)
 - ⏳ Add UI component (bookmark: `add-ui-component`)
 </code></pre>
-<h2 id="see-also-1"><a class="header" href="#see-also-1">See Also</a></h2>
+<h2 id="see-also-2"><a class="header" href="#see-also-2">See Also</a></h2>
 <ul>
 <li><a href="#understanding-bookmarks-and-branches">Bookmarks and Branches</a> - Understanding the relationship</li>
 <li><a href="#jf-land">jf land</a> - Clean up after PRs are merged</li>
@@ -967,7 +1033,7 @@ Dry run - would push:
 jf land &lt;bookmark&gt;       # Land a specific PR
 jf land --dry-run        # Preview what would be done
 </code></pre>
-<h2 id="options-1"><a class="header" href="#options-1">Options</a></h2>
+<h2 id="options-2"><a class="header" href="#options-2">Options</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -979,15 +1045,16 @@ jf land --dry-run        # Preview what would be done
 </tbody>
 </table>
 </div>
-<h2 id="what-it-does-1"><a class="header" href="#what-it-does-1">What It Does</a></h2>
+<h2 id="what-it-does-2"><a class="header" href="#what-it-does-2">What It Does</a></h2>
 <ol>
 <li><strong>Fetches from remote</strong> - Gets latest state from origin</li>
 <li><strong>Finds merged PRs</strong> - Checks which bookmarks have merged PRs (via <code>gh</code> CLI)</li>
 <li><strong>Deletes landed bookmarks</strong> - Removes local bookmarks for merged PRs</li>
 <li><strong>Rebases remaining stack</strong> - Updates your stack onto the updated main</li>
+<li><strong>Creates fresh commit</strong> - Runs <code>jj new</code> so you’re ready for new work</li>
 <li><strong>Shows updated stack</strong> - Displays what’s left to work on</li>
 </ol>
-<h2 id="examples-1"><a class="header" href="#examples-1">Examples</a></h2>
+<h2 id="examples-2"><a class="header" href="#examples-2">Examples</a></h2>
 <h3 id="auto-detect-and-cleanup-merged-prs"><a class="header" href="#auto-detect-and-cleanup-merged-prs">Auto-detect and cleanup merged PRs</a></h3>
 <pre><code class="language-bash">jf land
 </code></pre>
@@ -998,11 +1065,11 @@ jf land --dry-run        # Preview what would be done
 ℹ Deleting bookmark 'jf/auth-api'...
 ℹ Rebasing stack onto main@origin...
 ✓ Cleanup complete!
+ℹ Creating fresh commit for new work...
 
 ╭─ Your Stack (1 commit) ──────────────────────╮
 │                                               │
-│  ●  abc123  Add login screen UI              │
-│      → jf/login-screen                       │
+│  ●  xyz789  (empty) New work                 │
 │  │                                            │
 │  ◆  main@origin                              │
 │                                               │
@@ -1028,7 +1095,7 @@ jf land          # Cleanup merged bookmarks
 jf               # See remaining stack
 jf push          # Update remaining PRs with new base
 </code></pre>
-<h2 id="see-also-2"><a class="header" href="#see-also-2">See Also</a></h2>
+<h2 id="see-also-3"><a class="header" href="#see-also-3">See Also</a></h2>
 <ul>
 <li><a href="#jf-push">jf push</a> - Push changes to GitHub</li>
 <li><a href="#jf-pull">jf pull</a> - Pull and rebase stack</li>
@@ -1050,7 +1117,7 @@ jf reorder -f &lt;c1&gt; &lt;c2&gt; &lt;c3&gt; ...        # reorder starting fro
 jf reorder --invert                      # reverse the entire stack
 jf reorder --invert -f &lt;change&gt;          # reverse from change to @ (inclusive)
 </code></pre>
-<h2 id="options-2"><a class="header" href="#options-2">Options</a></h2>
+<h2 id="options-3"><a class="header" href="#options-3">Options</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1063,7 +1130,7 @@ jf reorder --invert -f &lt;change&gt;          # reverse from change to @ (inclu
 </tbody>
 </table>
 </div>
-<h2 id="what-it-does-2"><a class="header" href="#what-it-does-2">What It Does</a></h2>
+<h2 id="what-it-does-3"><a class="header" href="#what-it-does-3">What It Does</a></h2>
 <h3 id="explicit-reorder"><a class="header" href="#explicit-reorder">Explicit Reorder</a></h3>
 <p>Put changes in exactly the order you specify:</p>
 <pre><code class="language-bash">jf reorder abc def ghi
@@ -1097,7 +1164,7 @@ jf reorder --invert -f &lt;change&gt;          # reverse from change to @ (inclu
 <pre><code class="language-bash">jf reorder --invert -f def
 </code></pre>
 <p>This reverses from <code>def</code> to <code>@</code>, leaving earlier changes alone.</p>
-<h2 id="examples-2"><a class="header" href="#examples-2">Examples</a></h2>
+<h2 id="examples-3"><a class="header" href="#examples-3">Examples</a></h2>
 <h3 id="fix-dependency-order"><a class="header" href="#fix-dependency-order">Fix dependency order</a></h3>
 <p>You created changes in the wrong order - the UI change came before the API it depends on:</p>
 <pre><code class="language-bash"># Current (wrong):
@@ -1123,7 +1190,7 @@ jf reorder api-change ui-change
 <li>Shows the updated stack after reordering</li>
 <li>Under the hood, uses <code>jj rebase</code> to move changes</li>
 </ul>
-<h2 id="see-also-3"><a class="header" href="#see-also-3">See Also</a></h2>
+<h2 id="see-also-4"><a class="header" href="#see-also-4">See Also</a></h2>
 <ul>
 <li><a href="#jf-status">jf status</a> - View your stack</li>
 <li><a href="#jf-push">jf push</a> - Push after reordering</li>
@@ -1139,7 +1206,7 @@ jf wip pull         # pull wip branch and rebase onto main
 jf wip clean        # delete wip branch (if changes have PRs)
 jf wip clean --force # delete wip branch regardless
 </code></pre>
-<h2 id="options-3"><a class="header" href="#options-3">Options</a></h2>
+<h2 id="options-4"><a class="header" href="#options-4">Options</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1150,7 +1217,7 @@ jf wip clean --force # delete wip branch regardless
 </tbody>
 </table>
 </div>
-<h2 id="what-it-does-3"><a class="header" href="#what-it-does-3">What It Does</a></h2>
+<h2 id="what-it-does-4"><a class="header" href="#what-it-does-4">What It Does</a></h2>
 <p>The <code>wip</code> command helps you sync uncommitted work between machines without creating PRs.</p>
 <h3 id="the-problem-1"><a class="header" href="#the-problem-1">The Problem</a></h3>
 <p>With jj/jflow, you work directly on main and your changes aren’t on a feature branch. When you need to switch machines, you need a way to transfer your stack.</p>
@@ -1262,7 +1329,7 @@ jf wip clean  # just clean up the wip branch
 <li>Changes in wip are rebased onto the latest main@origin when pulled</li>
 <li>The <code>clean</code> command checks that changes have PRs before deleting (safety net)</li>
 </ul>
-<h2 id="see-also-4"><a class="header" href="#see-also-4">See Also</a></h2>
+<h2 id="see-also-5"><a class="header" href="#see-also-5">See Also</a></h2>
 <ul>
 <li><a href="#jf-push">jf push</a> - Push changes as PRs</li>
 <li><a href="#jf-pull">jf pull</a> - Pull and rebase main</li>
@@ -1373,7 +1440,7 @@ jf push -b auth-v2
 <h1 id="github-integration-1"><a class="header" href="#github-integration-1">GitHub Integration</a></h1>
 <p>Using jflow with GitHub PRs via gh CLI.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h1>
+<h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
 <p>Complete <code>.jflow.toml</code> guide.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="stacked-changes"><a class="header" href="#stacked-changes">Stacked Changes</a></h1>

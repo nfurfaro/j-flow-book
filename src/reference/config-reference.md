@@ -2,17 +2,32 @@
 
 All `.jflow.toml` options explained.
 
+## Config Hierarchy
+
+jflow loads configuration in this order (later values override earlier):
+
+1. **Built-in defaults** - sensible starting values
+2. **Global config** (`~/.jflow.toml`) - your personal defaults
+3. **Local config** (`.jflow.toml` in repo) - project-specific overrides
+
+This means you can set your preferred theme and push style globally, then override just the primary branch for specific projects.
+
 ## Full Example
 
 ```toml
 [remote]
 name = "origin"
-main_branch = "main"
+primary = "main"
 
 [github]
 push_style = "squash"
 merge_style = "squash"
 stack_context = true
+
+[display]
+theme = "catppuccin"
+icons = "unicode"
+show_commit_ids = false
 
 [bookmarks]
 prefix = ""
@@ -27,13 +42,13 @@ Remote repository settings.
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `name` | string | `"origin"` | Name of the Git remote |
-| `main_branch` | string | `"main"` | Main branch name |
+| `primary` | string | `"main"` | Primary branch name (also accepts `trunk` as alias) |
 
 **Branch resolution:**
 
-jflow resolves the main branch reference in this order:
-1. `main_branch@remote` (e.g., `main@origin`) - the remote tracking branch
-2. `main_branch` (local) - if remote doesn't exist
+jflow resolves the primary branch reference in this order:
+1. `primary@remote` (e.g., `main@origin`) - the remote tracking branch
+2. `primary` (local) - if remote doesn't exist
 3. `root()` - fallback for brand new repos
 
 ### [github]
@@ -61,6 +76,20 @@ GitHub integration settings.
 | `merge` | Create a merge commit |
 | `rebase` | Rebase and merge |
 
+### [display]
+
+Display and theming settings.
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `theme` | string | `"catppuccin"` | Color theme |
+| `icons` | string | `"unicode"` | Icon set |
+| `show_commit_ids` | bool | `false` | Show git commit hashes |
+
+**Available themes:** `catppuccin`, `nord`, `dracula`, `default`
+
+**Available icon sets:** `unicode`, `ascii`, `nerdfont`
+
 ### [bookmarks]
 
 Bookmark naming settings.
@@ -80,13 +109,21 @@ jflow respects standard environment variables:
 | `NO_COLOR` | Disable color output |
 | `CLICOLOR_FORCE` | Force color output |
 
-## File Location
+## File Locations
+
+### Global Config
+
+Location: `~/.jflow.toml`
+
+Set your personal defaults here. These apply to all repositories unless overridden.
+
+### Local Config
 
 jflow looks for `.jflow.toml` in:
 1. Current directory
 2. Parent directories (up to repository root)
 
-If not found, default values are used.
+Local config values override global config.
 
 ## Creating a Config
 
@@ -96,7 +133,7 @@ If not found, default values are used.
 jf init
 ```
 
-Guides you through configuration with prompts.
+Guides you through configuration with prompts. Skips if global config already exists.
 
 ### Quick Setup
 
@@ -106,6 +143,23 @@ jf init --defaults
 
 Creates config with sensible defaults.
 
+### Force Local Config
+
+```bash
+jf init --local
+```
+
+Creates local `.jflow.toml` even if global config exists.
+
 ### Manual
 
 Create `.jflow.toml` manually with your preferred settings.
+
+## Backward Compatibility
+
+The `trunk` field name is accepted as an alias for `primary`:
+
+```toml
+[remote]
+trunk = "main"  # Works, but 'primary' is preferred
+```

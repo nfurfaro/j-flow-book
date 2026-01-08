@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "navy";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-2940af9e.js";
+            window.path_to_searchindex_js = "../searchindex-68012474.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2907949e.js"></script>
@@ -196,6 +196,13 @@ jf init
 </code></pre>
 <p>Follow the prompts or use <code>jf init --defaults</code> for quick setup.</p>
 <p>This creates <code>.jflow.toml</code> with your configuration.</p>
+<h3 id="starting-a-new-project"><a class="header" href="#starting-a-new-project">Starting a new project?</a></h3>
+<p>Create a GitHub repo and initialize in one step:</p>
+<pre><code class="language-bash">mkdir my-project &amp;&amp; cd my-project
+jj git init
+jf init --github
+</code></pre>
+<p>This creates a private GitHub repo, sets up the remote, and initializes jflow.</p>
 <h2 id="3-view-your-stack"><a class="header" href="#3-view-your-stack">3. View Your Stack</a></h2>
 <pre><code class="language-bash">jf
 </code></pre>
@@ -259,6 +266,7 @@ jj edit &lt;change-id&gt;
 </thead>
 <tbody>
 <tr><td><code>jf init</code></td><td>Initialize jflow in repo</td></tr>
+<tr><td><code>jf init --github</code></td><td>Create GitHub repo and initialize</td></tr>
 <tr><td><code>jf</code></td><td>View your stack with sync state</td></tr>
 <tr><td><code>jf push</code></td><td>Push and create/update PRs</td></tr>
 <tr><td><code>jf land</code></td><td>Clean up after PRs merge</td></tr>
@@ -320,7 +328,7 @@ jf push                      # Actually push
 <ul>
 <li>Learn about each <a href="../commands/init.html">command</a> in detail</li>
 <li>Read the <a href="../guides/complete-workflow.html">complete workflow guide</a></li>
-<li>Configure <a href="../guides/themes.html">themes and icons</a></li>
+<li>Understand <a href="../guides/stacked-changes.html">stacked changes</a></li>
 </ul>
 
                     </main>
