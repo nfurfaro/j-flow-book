@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "navy";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-2940af9e.js";
+            window.path_to_searchindex_js = "../searchindex-68012474.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2907949e.js"></script>
@@ -205,6 +205,7 @@ jf land --dry-run        # Preview what would be done
 <li><strong>Finds merged PRs</strong> - Checks which bookmarks have merged PRs (via <code>gh</code> CLI)</li>
 <li><strong>Deletes landed bookmarks</strong> - Removes local bookmarks for merged PRs</li>
 <li><strong>Rebases remaining stack</strong> - Updates your stack onto the updated main</li>
+<li><strong>Creates fresh commit</strong> - Runs <code>jj new</code> so you’re ready for new work</li>
 <li><strong>Shows updated stack</strong> - Displays what’s left to work on</li>
 </ol>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
@@ -218,11 +219,11 @@ jf land --dry-run        # Preview what would be done
 ℹ Deleting bookmark 'jf/auth-api'...
 ℹ Rebasing stack onto main@origin...
 ✓ Cleanup complete!
+ℹ Creating fresh commit for new work...
 
 ╭─ Your Stack (1 commit) ──────────────────────╮
 │                                               │
-│  ●  abc123  Add login screen UI              │
-│      → jf/login-screen                       │
+│  ●  xyz789  (empty) New work                 │
 │  │                                            │
 │  ◆  main@origin                              │
 │                                               │
