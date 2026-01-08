@@ -36,7 +36,7 @@
             const path_to_root = "";
             const default_light_theme = "navy";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-68012474.js";
+            window.path_to_searchindex_js = "searchindex-259693bb.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-2907949e.js"></script>
@@ -754,8 +754,9 @@ jf push  # Creates PRs for both
 <h1 id="jf-init"><a class="header" href="#jf-init">jf init</a></h1>
 <p>Initialize jflow in a Jujutsu repository.</p>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
-<pre><code class="language-bash">jf init              # Interactive setup
+<pre><code class="language-bash">jf init              # Interactive setup (skips if global config exists)
 jf init --defaults   # Use auto-detected defaults
+jf init --local      # Force create local config
 jf init --github     # Create GitHub repo and initialize
 </code></pre>
 <h2 id="options"><a class="header" href="#options">Options</a></h2>
@@ -766,13 +767,15 @@ jf init --github     # Create GitHub repo and initialize
 </thead>
 <tbody>
 <tr><td><code>-d, --defaults</code></td><td>Skip prompts, use detected/default values</td></tr>
+<tr><td><code>-l, --local</code></td><td>Force creating local <code>.jflow.toml</code> even if global config exists</td></tr>
 <tr><td><code>--github</code></td><td>Create a GitHub repository (uses <code>gh</code> CLI)</td></tr>
 </tbody>
 </table>
 </div>
 <h2 id="what-it-does"><a class="header" href="#what-it-does">What It Does</a></h2>
 <ol>
-<li>Detects your main branch (main/master) and remote (origin)</li>
+<li>Checks for global config (<code>~/.jflow.toml</code>) - if found, jflow is ready to use</li>
+<li>Detects your primary branch (main/master) and remote (origin)</li>
 <li>Prompts for configuration (or uses defaults with <code>-d</code>)</li>
 <li>Creates <code>.jflow.toml</code> config file</li>
 <li>Optionally creates a GitHub repository with <code>--github</code></li>
@@ -782,9 +785,10 @@ jf init --github     # Create GitHub repo and initialize
 <pre><code class="language-bash">cd my-jj-project
 jf init
 </code></pre>
+<p>If you have a global <code>~/.jflow.toml</code>, jflow will use that and skip creating a local config.</p>
 <p>You’ll be prompted for:</p>
 <ul>
-<li>Main branch name (detected: main)</li>
+<li>Primary branch name (detected: main)</li>
 <li>Remote name (detected: origin)</li>
 <li>Push style (squash or append)</li>
 <li>Bookmark prefix (optional)</li>
@@ -793,6 +797,10 @@ jf init
 <pre><code class="language-bash">jf init --defaults
 </code></pre>
 <p>Uses auto-detected values without prompting.</p>
+<h3 id="force-local-config"><a class="header" href="#force-local-config">Force local config</a></h3>
+<pre><code class="language-bash">jf init --local
+</code></pre>
+<p>Creates a local <code>.jflow.toml</code> even if global config exists. Local config values override global settings.</p>
 <h3 id="new-project-with-github"><a class="header" href="#new-project-with-github">New project with GitHub</a></h3>
 <pre><code class="language-bash">mkdir my-project
 cd my-project
@@ -1441,7 +1449,53 @@ jf push -b auth-v2
 <p>Using jflow with GitHub PRs via gh CLI.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
-<p>Complete <code>.jflow.toml</code> guide.</p>
+<p>This guide covers how to configure jflow for your workflow.</p>
+<h2 id="quick-start-1"><a class="header" href="#quick-start-1">Quick Start</a></h2>
+<p>Run <code>jf init</code> in your repository:</p>
+<pre><code class="language-bash">jf init           # Interactive setup
+jf init -d        # Use defaults
+</code></pre>
+<p>If you have a global <code>~/.jflow.toml</code>, jflow will use it automatically. Use <code>jf init --local</code> to create a project-specific config.</p>
+<h2 id="global-vs-local-config"><a class="header" href="#global-vs-local-config">Global vs Local Config</a></h2>
+<p>jflow supports a two-level configuration hierarchy:</p>
+<h3 id="global-config-jflowtoml"><a class="header" href="#global-config-jflowtoml">Global Config (<code>~/.jflow.toml</code>)</a></h3>
+<p>Your personal defaults that apply to all repositories:</p>
+<pre><code class="language-toml">[display]
+theme = "nord"
+icons = "nerdfont"
+
+[github]
+push_style = "append"
+</code></pre>
+<h3 id="local-config-jflowtoml"><a class="header" href="#local-config-jflowtoml">Local Config (<code>.jflow.toml</code>)</a></h3>
+<p>Project-specific settings that override global config:</p>
+<pre><code class="language-toml">[remote]
+primary = "develop"  # This project uses 'develop' instead of 'main'
+</code></pre>
+<h2 id="common-configurations"><a class="header" href="#common-configurations">Common Configurations</a></h2>
+<h3 id="simple-setup"><a class="header" href="#simple-setup">Simple Setup</a></h3>
+<p>Most users just need:</p>
+<pre><code class="language-toml">[remote]
+name = "origin"
+primary = "main"
+</code></pre>
+<h3 id="custom-theme"><a class="header" href="#custom-theme">Custom Theme</a></h3>
+<pre><code class="language-toml">[display]
+theme = "dracula"      # Options: catppuccin, nord, dracula, default
+icons = "nerdfont"     # Options: unicode, ascii, nerdfont
+</code></pre>
+<h3 id="append-style-pushes"><a class="header" href="#append-style-pushes">Append-Style Pushes</a></h3>
+<p>Preserve review comments by appending commits instead of force-pushing:</p>
+<pre><code class="language-toml">[github]
+push_style = "append"
+</code></pre>
+<h3 id="bookmark-prefix"><a class="header" href="#bookmark-prefix">Bookmark Prefix</a></h3>
+<p>Namespace your bookmarks:</p>
+<pre><code class="language-toml">[bookmarks]
+prefix = "nick/"  # Creates bookmarks like "nick/add-feature"
+</code></pre>
+<h2 id="full-reference"><a class="header" href="#full-reference">Full Reference</a></h2>
+<p>See <a href="#configuration-reference">Configuration Reference</a> for all options.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="stacked-changes"><a class="header" href="#stacked-changes">Stacked Changes</a></h1>
 <p>A workflow methodology for building features as small, focused, reviewable changes.</p>
@@ -1529,15 +1583,28 @@ Review/merge order (inside-out):
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="configuration-reference"><a class="header" href="#configuration-reference">Configuration Reference</a></h1>
 <p>All <code>.jflow.toml</code> options explained.</p>
+<h2 id="config-hierarchy"><a class="header" href="#config-hierarchy">Config Hierarchy</a></h2>
+<p>jflow loads configuration in this order (later values override earlier):</p>
+<ol>
+<li><strong>Built-in defaults</strong> - sensible starting values</li>
+<li><strong>Global config</strong> (<code>~/.jflow.toml</code>) - your personal defaults</li>
+<li><strong>Local config</strong> (<code>.jflow.toml</code> in repo) - project-specific overrides</li>
+</ol>
+<p>This means you can set your preferred theme and push style globally, then override just the primary branch for specific projects.</p>
 <h2 id="full-example"><a class="header" href="#full-example">Full Example</a></h2>
 <pre><code class="language-toml">[remote]
 name = "origin"
-main_branch = "main"
+primary = "main"
 
 [github]
 push_style = "squash"
 merge_style = "squash"
 stack_context = true
+
+[display]
+theme = "catppuccin"
+icons = "unicode"
+show_commit_ids = false
 
 [bookmarks]
 prefix = ""
@@ -1552,15 +1619,15 @@ prefix = ""
 </thead>
 <tbody>
 <tr><td><code>name</code></td><td>string</td><td><code>"origin"</code></td><td>Name of the Git remote</td></tr>
-<tr><td><code>main_branch</code></td><td>string</td><td><code>"main"</code></td><td>Main branch name</td></tr>
+<tr><td><code>primary</code></td><td>string</td><td><code>"main"</code></td><td>Primary branch name (also accepts <code>trunk</code> as alias)</td></tr>
 </tbody>
 </table>
 </div>
 <p><strong>Branch resolution:</strong></p>
-<p>jflow resolves the main branch reference in this order:</p>
+<p>jflow resolves the primary branch reference in this order:</p>
 <ol>
-<li><code>main_branch@remote</code> (e.g., <code>main@origin</code>) - the remote tracking branch</li>
-<li><code>main_branch</code> (local) - if remote doesn’t exist</li>
+<li><code>primary@remote</code> (e.g., <code>main@origin</code>) - the remote tracking branch</li>
+<li><code>primary</code> (local) - if remote doesn’t exist</li>
 <li><code>root()</code> - fallback for brand new repos</li>
 </ol>
 <h3 id="github"><a class="header" href="#github">[github]</a></h3>
@@ -1602,6 +1669,22 @@ prefix = ""
 </tbody>
 </table>
 </div>
+<h3 id="display-1"><a class="header" href="#display-1">[display]</a></h3>
+<p>Display and theming settings.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>theme</code></td><td>string</td><td><code>"catppuccin"</code></td><td>Color theme</td></tr>
+<tr><td><code>icons</code></td><td>string</td><td><code>"unicode"</code></td><td>Icon set</td></tr>
+<tr><td><code>show_commit_ids</code></td><td>bool</td><td><code>false</code></td><td>Show git commit hashes</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Available themes:</strong> <code>catppuccin</code>, <code>nord</code>, <code>dracula</code>, <code>default</code></p>
+<p><strong>Available icon sets:</strong> <code>unicode</code>, <code>ascii</code>, <code>nerdfont</code></p>
 <h3 id="bookmarks"><a class="header" href="#bookmarks">[bookmarks]</a></h3>
 <p>Bookmark naming settings.</p>
 <div class="table-wrapper">
@@ -1628,24 +1711,37 @@ prefix = ""
 </tbody>
 </table>
 </div>
-<h2 id="file-location"><a class="header" href="#file-location">File Location</a></h2>
+<h2 id="file-locations"><a class="header" href="#file-locations">File Locations</a></h2>
+<h3 id="global-config"><a class="header" href="#global-config">Global Config</a></h3>
+<p>Location: <code>~/.jflow.toml</code></p>
+<p>Set your personal defaults here. These apply to all repositories unless overridden.</p>
+<h3 id="local-config"><a class="header" href="#local-config">Local Config</a></h3>
 <p>jflow looks for <code>.jflow.toml</code> in:</p>
 <ol>
 <li>Current directory</li>
 <li>Parent directories (up to repository root)</li>
 </ol>
-<p>If not found, default values are used.</p>
+<p>Local config values override global config.</p>
 <h2 id="creating-a-config"><a class="header" href="#creating-a-config">Creating a Config</a></h2>
 <h3 id="interactive-setup"><a class="header" href="#interactive-setup">Interactive Setup</a></h3>
 <pre><code class="language-bash">jf init
 </code></pre>
-<p>Guides you through configuration with prompts.</p>
+<p>Guides you through configuration with prompts. Skips if global config already exists.</p>
 <h3 id="quick-setup"><a class="header" href="#quick-setup">Quick Setup</a></h3>
 <pre><code class="language-bash">jf init --defaults
 </code></pre>
 <p>Creates config with sensible defaults.</p>
+<h3 id="force-local-config-1"><a class="header" href="#force-local-config-1">Force Local Config</a></h3>
+<pre><code class="language-bash">jf init --local
+</code></pre>
+<p>Creates local <code>.jflow.toml</code> even if global config exists.</p>
 <h3 id="manual"><a class="header" href="#manual">Manual</a></h3>
 <p>Create <code>.jflow.toml</code> manually with your preferred settings.</p>
+<h2 id="backward-compatibility"><a class="header" href="#backward-compatibility">Backward Compatibility</a></h2>
+<p>The <code>trunk</code> field name is accepted as an alias for <code>primary</code>:</p>
+<pre><code class="language-toml">[remote]
+trunk = "main"  # Works, but 'primary' is preferred
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="revsets"><a class="header" href="#revsets">Revsets</a></h1>
 <p>How jflow uses jj revsets.</p>

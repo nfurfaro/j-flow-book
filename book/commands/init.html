@@ -35,7 +35,7 @@
             const path_to_root = "../";
             const default_light_theme = "navy";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "../searchindex-68012474.js";
+            window.path_to_searchindex_js = "../searchindex-259693bb.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2907949e.js"></script>
@@ -183,8 +183,9 @@
                         <h1 id="jf-init"><a class="header" href="#jf-init">jf init</a></h1>
 <p>Initialize jflow in a Jujutsu repository.</p>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
-<pre><code class="language-bash">jf init              # Interactive setup
+<pre><code class="language-bash">jf init              # Interactive setup (skips if global config exists)
 jf init --defaults   # Use auto-detected defaults
+jf init --local      # Force create local config
 jf init --github     # Create GitHub repo and initialize
 </code></pre>
 <h2 id="options"><a class="header" href="#options">Options</a></h2>
@@ -195,13 +196,15 @@ jf init --github     # Create GitHub repo and initialize
 </thead>
 <tbody>
 <tr><td><code>-d, --defaults</code></td><td>Skip prompts, use detected/default values</td></tr>
+<tr><td><code>-l, --local</code></td><td>Force creating local <code>.jflow.toml</code> even if global config exists</td></tr>
 <tr><td><code>--github</code></td><td>Create a GitHub repository (uses <code>gh</code> CLI)</td></tr>
 </tbody>
 </table>
 </div>
 <h2 id="what-it-does"><a class="header" href="#what-it-does">What It Does</a></h2>
 <ol>
-<li>Detects your main branch (main/master) and remote (origin)</li>
+<li>Checks for global config (<code>~/.jflow.toml</code>) - if found, jflow is ready to use</li>
+<li>Detects your primary branch (main/master) and remote (origin)</li>
 <li>Prompts for configuration (or uses defaults with <code>-d</code>)</li>
 <li>Creates <code>.jflow.toml</code> config file</li>
 <li>Optionally creates a GitHub repository with <code>--github</code></li>
@@ -211,9 +214,10 @@ jf init --github     # Create GitHub repo and initialize
 <pre><code class="language-bash">cd my-jj-project
 jf init
 </code></pre>
+<p>If you have a global <code>~/.jflow.toml</code>, jflow will use that and skip creating a local config.</p>
 <p>You’ll be prompted for:</p>
 <ul>
-<li>Main branch name (detected: main)</li>
+<li>Primary branch name (detected: main)</li>
 <li>Remote name (detected: origin)</li>
 <li>Push style (squash or append)</li>
 <li>Bookmark prefix (optional)</li>
@@ -222,6 +226,10 @@ jf init
 <pre><code class="language-bash">jf init --defaults
 </code></pre>
 <p>Uses auto-detected values without prompting.</p>
+<h3 id="force-local-config"><a class="header" href="#force-local-config">Force local config</a></h3>
+<pre><code class="language-bash">jf init --local
+</code></pre>
+<p>Creates a local <code>.jflow.toml</code> even if global config exists. Local config values override global settings.</p>
 <h3 id="new-project-with-github"><a class="header" href="#new-project-with-github">New project with GitHub</a></h3>
 <pre><code class="language-bash">mkdir my-project
 cd my-project
